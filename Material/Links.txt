@@ -1,0 +1,11 @@
+https://blog.330ohms.com/2022/02/01/construye-un-generador-de-senales-con-la-raspberry-pi-pico/
+
+https://people.ece.cornell.edu/land/courses/ece4760/FinalProjects/f2016/ak634_jmw483_dm797/ak634_jmw483_dm797/ak634_jmw483_dm797/index.html
+
+
+Raspberry Pi Pico PIO Arbitrary Waveform Generator
+https://www.youtube.com/watch?v=_lZ1Pw6WAqI
+
+
+https://www.youtube.com/watch?v=zLWmkNiZ-ec
+
