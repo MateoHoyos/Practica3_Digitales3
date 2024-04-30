@@ -1,0 +1,196 @@
+\doxysection{main.\+c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{main.c@{main.c}}
+
+
+Archivo principal.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}pico/stdlib.\+h"{}}\newline
+{\ttfamily \#include "{}hardware/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}hardware/timer.\+h"{}}\newline
+{\ttfamily \#include $<$pico/time.\+h$>$}\newline
+{\ttfamily \#include "{}pico/multicore.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}{PIN}}~17
+\begin{DoxyCompactList}\small\item\em Se definen cada uno de los pines a utilizar en el sistema donde se le asigna a los transistores y lectura de frecuencia. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{main_8c_a8e5c16d1055d0bb652795a0b0a843284}{TIMER\+\_\+\+MS}}~1000
+\item 
+\#define \mbox{\hyperlink{main_8c_a32c365f2a19b381a4b21fd98c5c59cc3}{transistor\+Pin1}}~10
+\item 
+\#define \mbox{\hyperlink{main_8c_ad5267b1b669971effb893e7c1a4df3bc}{transistor\+Pin2}}~9
+\item 
+\#define \mbox{\hyperlink{main_8c_a2c577b599348eb12a2f7531558a95001}{transistor\+Pin3}}~8
+\item 
+\#define \mbox{\hyperlink{main_8c_ac8eeed9946f21ac21415057970bd1e4e}{transistor\+Pin4}}~11
+\item 
+\#define \mbox{\hyperlink{main_8c_a2b0104d8eced229f5b25ccab9d93d8e4}{transistor\+Pin5}}~12
+\item 
+\#define \mbox{\hyperlink{main_8c_a8bf35f72bc181657c0f8ab8fdb286b09}{transistor\+Pin6}}~13
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8c_a63fcf1478327c5d3cbf0d18cfe47a9ad}{Mostrar\+\_\+\+Numero}} ()
+\item 
+void \mbox{\hyperlink{main_8c_a3a1c681e5c6708134fe53f1e6d121798}{interrupt\+\_\+handler}} ()
+\item 
+bool \mbox{\hyperlink{main_8c_af9a530b4e9359853e9435c6c048b71a1}{timer\+\_\+callback}} (repeating\+\_\+timer\+\_\+t \texorpdfstring{$\ast$}{*}rt)
+\begin{DoxyCompactList}\small\item\em timer\+\_\+callback Funcion callback que se usa en la definición del timer, se accede a ella cada x tiempo definido. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{main_8c_a6e49e98c6a71e68389025a69dbb6cda6}{Pines\+\_\+segmentos}} \mbox{[}$\,$\mbox{]} = \{1, 2, 3, 4, 5, 6, 7\}
+\item 
+int \mbox{\hyperlink{main_8c_aa7eb5376e1650ec98fb15d7578286df4}{frecuencia}} =0
+\item 
+const uint64\+\_\+t \mbox{\hyperlink{main_8c_a5ff458268ecf3e97aa943ade9060be0b}{digitos}} \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{main_8c_a2c6a3fb7cddd9bd7254692264962b5b3}{contador}} =0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Archivo principal. 
+
+En este codigo se hace lectura de la frecuencia leida por un pin GPIO y se muestra en 6 LEDS 7 segmentos la variable que se está leyendo esto con el objetivo de cononcer cual es la frecuencia maxima leída por interrupciones en la raspberry pi pico 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8c_ae1a27401b7fb01ccb9a82dbddbb54eea}\label{main_8c_ae1a27401b7fb01ccb9a82dbddbb54eea} 
+\index{main.c@{main.c}!PIN@{PIN}}
+\index{PIN@{PIN}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{PIN}{PIN}}
+{\footnotesize\ttfamily \#define PIN~17}
+
+
+
+Se definen cada uno de los pines a utilizar en el sistema donde se le asigna a los transistores y lectura de frecuencia. 
+
+\Hypertarget{main_8c_a8e5c16d1055d0bb652795a0b0a843284}\label{main_8c_a8e5c16d1055d0bb652795a0b0a843284} 
+\index{main.c@{main.c}!TIMER\_MS@{TIMER\_MS}}
+\index{TIMER\_MS@{TIMER\_MS}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{TIMER\_MS}{TIMER\_MS}}
+{\footnotesize\ttfamily \#define TIMER\+\_\+\+MS~1000}
+
+\Hypertarget{main_8c_a32c365f2a19b381a4b21fd98c5c59cc3}\label{main_8c_a32c365f2a19b381a4b21fd98c5c59cc3} 
+\index{main.c@{main.c}!transistorPin1@{transistorPin1}}
+\index{transistorPin1@{transistorPin1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transistorPin1}{transistorPin1}}
+{\footnotesize\ttfamily \#define transistor\+Pin1~10}
+
+\Hypertarget{main_8c_ad5267b1b669971effb893e7c1a4df3bc}\label{main_8c_ad5267b1b669971effb893e7c1a4df3bc} 
+\index{main.c@{main.c}!transistorPin2@{transistorPin2}}
+\index{transistorPin2@{transistorPin2}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transistorPin2}{transistorPin2}}
+{\footnotesize\ttfamily \#define transistor\+Pin2~9}
+
+\Hypertarget{main_8c_a2c577b599348eb12a2f7531558a95001}\label{main_8c_a2c577b599348eb12a2f7531558a95001} 
+\index{main.c@{main.c}!transistorPin3@{transistorPin3}}
+\index{transistorPin3@{transistorPin3}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transistorPin3}{transistorPin3}}
+{\footnotesize\ttfamily \#define transistor\+Pin3~8}
+
+\Hypertarget{main_8c_ac8eeed9946f21ac21415057970bd1e4e}\label{main_8c_ac8eeed9946f21ac21415057970bd1e4e} 
+\index{main.c@{main.c}!transistorPin4@{transistorPin4}}
+\index{transistorPin4@{transistorPin4}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transistorPin4}{transistorPin4}}
+{\footnotesize\ttfamily \#define transistor\+Pin4~11}
+
+\Hypertarget{main_8c_a2b0104d8eced229f5b25ccab9d93d8e4}\label{main_8c_a2b0104d8eced229f5b25ccab9d93d8e4} 
+\index{main.c@{main.c}!transistorPin5@{transistorPin5}}
+\index{transistorPin5@{transistorPin5}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transistorPin5}{transistorPin5}}
+{\footnotesize\ttfamily \#define transistor\+Pin5~12}
+
+\Hypertarget{main_8c_a8bf35f72bc181657c0f8ab8fdb286b09}\label{main_8c_a8bf35f72bc181657c0f8ab8fdb286b09} 
+\index{main.c@{main.c}!transistorPin6@{transistorPin6}}
+\index{transistorPin6@{transistorPin6}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{transistorPin6}{transistorPin6}}
+{\footnotesize\ttfamily \#define transistor\+Pin6~13}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_a3a1c681e5c6708134fe53f1e6d121798}\label{main_8c_a3a1c681e5c6708134fe53f1e6d121798} 
+\index{main.c@{main.c}!interrupt\_handler@{interrupt\_handler}}
+\index{interrupt\_handler@{interrupt\_handler}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{interrupt\_handler()}{interrupt\_handler()}}
+{\footnotesize\ttfamily void interrupt\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_a63fcf1478327c5d3cbf0d18cfe47a9ad}\label{main_8c_a63fcf1478327c5d3cbf0d18cfe47a9ad} 
+\index{main.c@{main.c}!Mostrar\_Numero@{Mostrar\_Numero}}
+\index{Mostrar\_Numero@{Mostrar\_Numero}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Mostrar\_Numero()}{Mostrar\_Numero()}}
+{\footnotesize\ttfamily void Mostrar\+\_\+\+Numero (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_af9a530b4e9359853e9435c6c048b71a1}\label{main_8c_af9a530b4e9359853e9435c6c048b71a1} 
+\index{main.c@{main.c}!timer\_callback@{timer\_callback}}
+\index{timer\_callback@{timer\_callback}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{timer\_callback()}{timer\_callback()}}
+{\footnotesize\ttfamily bool timer\+\_\+callback (\begin{DoxyParamCaption}\item[{repeating\+\_\+timer\+\_\+t \texorpdfstring{$\ast$}{*}}]{rt }\end{DoxyParamCaption})}
+
+
+
+timer\+\_\+callback Funcion callback que se usa en la definición del timer, se accede a ella cada x tiempo definido. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em repeating\+\_\+timer\+\_\+t} & \texorpdfstring{$\ast$}{*}rt Puntero a información para configuración del timer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Booleano para resultado de lo evaluado. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8c_a2c6a3fb7cddd9bd7254692264962b5b3}\label{main_8c_a2c6a3fb7cddd9bd7254692264962b5b3} 
+\index{main.c@{main.c}!contador@{contador}}
+\index{contador@{contador}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{contador}{contador}}
+{\footnotesize\ttfamily int contador =0}
+
+\Hypertarget{main_8c_a5ff458268ecf3e97aa943ade9060be0b}\label{main_8c_a5ff458268ecf3e97aa943ade9060be0b} 
+\index{main.c@{main.c}!digitos@{digitos}}
+\index{digitos@{digitos}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{digitos}{digitos}}
+{\footnotesize\ttfamily const uint64\+\_\+t digitos\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ 0b0111111,\ }
+\DoxyCodeLine{\ \ \ \ 0b0000110,\ }
+\DoxyCodeLine{\ \ \ \ 0b1011011,\ }
+\DoxyCodeLine{\ \ \ \ 0b1001111,\ }
+\DoxyCodeLine{\ \ \ \ 0b1100110,\ }
+\DoxyCodeLine{\ \ \ \ 0b1101101,\ }
+\DoxyCodeLine{\ \ \ \ 0b1111101,\ }
+\DoxyCodeLine{\ \ \ \ 0b0000111,\ }
+\DoxyCodeLine{\ \ \ \ 0b1111111,\ }
+\DoxyCodeLine{\ \ \ \ 0b1101111\ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{main_8c_aa7eb5376e1650ec98fb15d7578286df4}\label{main_8c_aa7eb5376e1650ec98fb15d7578286df4} 
+\index{main.c@{main.c}!frecuencia@{frecuencia}}
+\index{frecuencia@{frecuencia}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{frecuencia}{frecuencia}}
+{\footnotesize\ttfamily int frecuencia =0}
+
+\Hypertarget{main_8c_a6e49e98c6a71e68389025a69dbb6cda6}\label{main_8c_a6e49e98c6a71e68389025a69dbb6cda6} 
+\index{main.c@{main.c}!Pines\_segmentos@{Pines\_segmentos}}
+\index{Pines\_segmentos@{Pines\_segmentos}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Pines\_segmentos}{Pines\_segmentos}}
+{\footnotesize\ttfamily const int Pines\+\_\+segmentos\mbox{[}$\,$\mbox{]} = \{1, 2, 3, 4, 5, 6, 7\}}
+

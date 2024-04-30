@@ -1,0 +1,75 @@
+\doxysection{C\+:/\+Users/\+Mateo/\+Desktop/\+Digitales/\+Laboratorio/\+Practica3\+\_\+\+Digitales3/\+Codigos/3\+\_\+\+C\+\_\+polling/\+Teclado.h File Reference}
+\hypertarget{_teclado_8h}{}\label{_teclado_8h}\index{C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3\_Digitales3/Codigos/3\_C\_polling/Teclado.h@{C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3\_Digitales3/Codigos/3\_C\_polling/Teclado.h}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_teclado_8h_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\begin{DoxyCompactList}\small\item\em Configura los puertos GPIO para el funcionamiento del teclado matricial. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_teclado_8h_a14c2a58023dcfa15245fd0a271d181df}{get\+\_\+value}} (char \texorpdfstring{$\ast$}{*}let, int \texorpdfstring{$\ast$}{*}ampl, int \texorpdfstring{$\ast$}{*}DC, int \texorpdfstring{$\ast$}{*}freq)
+\begin{DoxyCompactList}\small\item\em Obtiene el valor ingresado desde un teclado matricial. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_teclado_8h_ab24d942df9b995c8e1bb8f00ac923b60}{convert\+\_\+to\+\_\+int}} (char entrada\mbox{[}$\,$\mbox{]}, char inicio, char fin)
+\begin{DoxyCompactList}\small\item\em Esta función es la entrada por teclado y extrae la contraseña de que se está ingresando que se encuentra en el índice 4 al 9 de la y se almacena en la cadena de caracteres \textquotesingle{}password\textquotesingle{}. La contraseña se termina con el carácter nulo \textquotesingle{}\textbackslash{}0\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_teclado_8h_ab24d942df9b995c8e1bb8f00ac923b60}\label{_teclado_8h_ab24d942df9b995c8e1bb8f00ac923b60} 
+\index{Teclado.h@{Teclado.h}!convert\_to\_int@{convert\_to\_int}}
+\index{convert\_to\_int@{convert\_to\_int}!Teclado.h@{Teclado.h}}
+\doxysubsubsection{\texorpdfstring{convert\_to\_int()}{convert\_to\_int()}}
+{\footnotesize\ttfamily int convert\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{char}]{entrada\mbox{[}$\,$\mbox{]},  }\item[{char}]{inicio,  }\item[{char}]{fin }\end{DoxyParamCaption})}
+
+
+
+Esta función es la entrada por teclado y extrae la contraseña de que se está ingresando que se encuentra en el índice 4 al 9 de la y se almacena en la cadena de caracteres \textquotesingle{}password\textquotesingle{}. La contraseña se termina con el carácter nulo \textquotesingle{}\textbackslash{}0\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entrada} & arreglo de caracteres que contiene la entrada completa del usuario. \\
+\hline
+{\em password} & arreglo de caracteres donde se almacena la contraseña extraída de entrada. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_teclado_8h_a14c2a58023dcfa15245fd0a271d181df}\label{_teclado_8h_a14c2a58023dcfa15245fd0a271d181df} 
+\index{Teclado.h@{Teclado.h}!get\_value@{get\_value}}
+\index{get\_value@{get\_value}!Teclado.h@{Teclado.h}}
+\doxysubsubsection{\texorpdfstring{get\_value()}{get\_value()}}
+{\footnotesize\ttfamily void get\+\_\+value (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{let,  }\item[{int \texorpdfstring{$\ast$}{*}}]{ampl,  }\item[{int \texorpdfstring{$\ast$}{*}}]{DC,  }\item[{int \texorpdfstring{$\ast$}{*}}]{freq }\end{DoxyParamCaption})}
+
+
+
+Obtiene el valor ingresado desde un teclado matricial. 
+
+Esta función verifica las teclas presionadas en un teclado matricial y obtiene el valor correspondiente. También obtiene la amplitud, el nivel DC y la frecuencia de la señal ingresada.
+
+
+\begin{DoxyParams}{Parameters}
+{\em let} & Puntero al carácter que representa la tecla presionada. \\
+\hline
+{\em ampl} & Puntero a la variable que almacenará la amplitud de la señal. \\
+\hline
+{\em DC} & Puntero a la variable que almacenará el nivel DC de la señal. \\
+\hline
+{\em freq} & Puntero a la variable que almacenará la frecuencia de la señal. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_teclado_8h_a4fc01d736fe50cf5b977f755b675f11d}\label{_teclado_8h_a4fc01d736fe50cf5b977f755b675f11d} 
+\index{Teclado.h@{Teclado.h}!setup@{setup}}
+\index{setup@{setup}!Teclado.h@{Teclado.h}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Configura los puertos GPIO para el funcionamiento del teclado matricial. 
+
+Se llaman todas las funciones definidas en Teclado\+\_\+anti.\+c
+
+Esta función inicializa y configura los puertos GPIO necesarios para el funcionamiento del teclado matricial. Las filas del teclado se configuran como salidas, mientras que las columnas se configuran como entradas con resistencia de pull-\/down. 
+\begin{DoxyParams}{Parameters}
+{\em keypad\+\_\+rows} & variable en la que se almacena la fila del teclado Se configura como salida, ya que como se verá dentro de la función scan\+\_\+keys() las filas siempre van en 1, debido a que se busca cuando la columna que se presiones esté en uno y así se detecte la tecla que se presiona\\
+\hline
+{\em keypad\+\_\+columns} & variable que almacena las columnas del teclado Se inicializa como salida y como pull\+\_\+down ya que cuando se presiona una tecla, esta variable se pone en uno, encontrando así la tecla presionada, es por esto que se pone\\
+\hline
+{\em gpio\+\_\+pulldown\+\_\+keypad\+\_\+columns} & para que se mantenga el estado lógico de 0 cuando no se está aplicando una señal externa al pin de la Raspberry.\\
+\hline
+\end{DoxyParams}

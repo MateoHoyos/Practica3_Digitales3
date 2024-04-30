@@ -1,0 +1,284 @@
+\doxysection{C\+:/\+Users/\+Mateo/\+Desktop/\+Digitales/\+Laboratorio/\+Practica3\+\_\+\+Digitales3/\+Codigos/3\+\_\+\+C\+\_\+polling/\+Senal\+\_\+pwm.c File Reference}
+\hypertarget{_senal__pwm_8c}{}\label{_senal__pwm_8c}\index{C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3\_Digitales3/Codigos/3\_C\_polling/Senal\_pwm.c@{C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3\_Digitales3/Codigos/3\_C\_polling/Senal\_pwm.c}}
+
+
+Generador Digital de Señales (GDS) en C con estrategia de polling.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}pico/stdlib.\+h"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}hardware/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}hardware/timer.\+h"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for Senal\+\_\+pwm.\+c\+:
+% FIG 0
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_senal__pwm_8c_ab25756a6cc29347ae13b4fc930a2fe64}{PIN\+\_\+\+BT\+\_\+\+START}}~0
+\begin{DoxyCompactList}\small\item\em Creación de constantes. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}~500
+\item 
+\#define \mbox{\hyperlink{_senal__pwm_8c_ab378053173122b6cbad42c3efd5cc8d6}{INTERVAL\+\_\+\+US}}~100
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_senal__pwm_8c_aef6e16b2f39b837bedfded5062a0348b}{timer\+\_\+callback1}} (struct repeating\+\_\+timer \texorpdfstring{$\ast$}{*}t)
+\begin{DoxyCompactList}\small\item\em Callback de temporizador para timer1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_senal__pwm_8c_aaf5bfb955e0f1694e54cd03df6416e71}{timer\+\_\+callback\+\_\+1}} (struct repeating\+\_\+timer \texorpdfstring{$\ast$}{*}t)
+\begin{DoxyCompactList}\small\item\em Callback de temporizador para timer\+\_\+1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_senal__pwm_8c_ad1ac4ad0e3a010b8021e476f750779cc}{int\+To\+Binary\+Vector}} (int num, int binary\+Vector\mbox{[}8\mbox{]})
+\begin{DoxyCompactList}\small\item\em Convierte un número entero en un vector binario. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_senal__pwm_8c_a4e8d863b0065192039f0227be27171aa}{Gen\+Senal}} (int type\+Senal, int frecuency, int Amp, int offset)
+\begin{DoxyCompactList}\small\item\em Genera una señal de salida en los puertos GPIO. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_senal__pwm_8c_a39b4fd7df9b0cd0bff7dbdc08899cc62}{verificar\+Tiempo\+Transcurrido}} (int segundos, bool rst)
+\begin{DoxyCompactList}\small\item\em Verifica si ha transcurrido un cierto número de segundos desde el inicio. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_senal__pwm_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Función principal del programa. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a1920ed807bd888b4d599a5d5071a0251}{tiempo\+\_\+inicio}} = 0
+\begin{DoxyCompactList}\small\item\em Creación de variables. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a139e7d05b69e732681f476c49ddd0f67}{tiempo\+\_\+10s}} =0
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a5981e8e077fdf91398eaee2112b5a75f}{timer\+\_\+ticks}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a4b83c86b8db36442952a8e16bff2d243}{one\+\_\+second}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a0fe2fc0ca5cac26ca90aa212cdbb3ab5}{binarios\+\_\+senoidal}} \mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{128 ,131 ,134 ,137 ,140 ,144 ,147 ,150 ,153 ,156 ,159 ,162 ,165 ,168 ,172 ,175 ,177 ,180 ,183 ,186 ,189 ,192 ,195 ,197 ,200 ,203 ,205 ,208 ,210 ,213 ,215 ,217 ,219 ,222 ,224 ,226 ,228 ,230 ,232 ,234 ,235 ,237 ,239 ,240 ,242 ,243 ,244 ,246 ,247 ,248 ,249 ,250 ,251 ,251 ,252 ,253 ,253 ,254 ,254 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,254 ,254 ,254 ,253 ,253 ,252 ,251 ,250 ,250 ,249 ,248 ,246 ,245 ,244 ,243 ,241 ,240 ,238 ,237 ,235 ,233 ,231 ,229 ,227 ,225 ,223 ,221 ,219 ,217 ,214 ,212 ,210 ,207 ,205 ,202 ,199 ,197 ,194 ,191 ,188 ,185 ,183 ,180 ,177 ,174 ,171 ,168 ,165 ,162 ,158 ,155 ,152 ,149 ,146 ,143 ,140 ,136 ,133 ,130 ,127 ,123 ,120 ,117 ,114 ,111 ,108 ,104 ,101 ,98 ,95 ,92 ,89 ,86 ,83 ,80 ,77 ,74 ,71 ,68 ,65 ,62 ,60 ,57 ,54 ,52 ,49 ,47 ,44 ,42 ,39 ,37 ,35 ,33 ,31 ,29 ,27 ,25 ,23 ,21 ,19 ,18 ,16 ,15 ,13 ,12 ,10 ,9 ,8 ,7 ,6 ,5 ,4 ,3 ,3 ,2 ,2 ,1 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ,1 ,1 ,2 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11 ,13 ,14 ,16 ,17 ,19 ,21 ,22 ,24 ,26 ,28 ,30 ,32 ,34 ,37 ,39 ,41 ,44 ,46 ,49 ,51 ,54 ,56 ,59 ,62 ,65 ,67 ,70 ,73 ,76 ,79 ,82 ,85 ,88 ,91 ,94 ,97 ,100 ,104 ,107 ,110 ,113 ,116 ,119 ,123 ,126 ,129 ,132 ,136 ,139 ,142 ,145 ,148 ,151 ,155 ,158 ,161 ,164 ,167 ,170 ,173 ,176 ,179 ,182 ,185 ,188 ,190 ,193 ,196 ,199 ,201 ,204 ,206 ,209 ,211 ,214 ,216 ,218 ,221 ,223 ,225 ,227 ,229 ,231 ,233 ,234 ,236 ,238 ,239 ,241 ,242 ,244 ,245 ,246 ,247 ,248 ,249 ,250 ,251 ,252 ,253 ,253 ,254 ,254 ,254 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,254 ,254 ,253 ,253 ,252 ,252 ,251 ,250 ,249 ,248 ,247 ,246 ,245 ,243 ,242 ,240 ,239 ,237 ,236 ,234 ,232 ,230 ,228 ,226 ,224 ,222 ,220 ,218 ,216 ,213 ,211 ,208 ,206 ,203 ,201 ,198 ,195 ,193 ,190 ,187 ,184 ,181 ,178 ,175 ,172 ,169 ,166 ,163 ,160 ,157 ,154 ,151 ,147 ,144 ,141 ,138 ,135 ,132 ,128 ,125 ,122 ,119 ,115 ,112 ,109 ,106 ,103 ,100 ,97 ,93 ,90 ,87 ,84 ,81 ,78 ,75 ,72 ,70 ,67 ,64 ,61 ,58 ,56 ,53 ,50 ,48 ,45 ,43 ,41 ,38 ,36 ,34 ,32 ,30 ,28 ,26 ,24 ,22 ,20 ,18 ,17 ,15 ,14 ,12 ,11 ,10 ,9 ,7 ,6 ,5 ,5 ,4 ,3 ,2 ,2 ,1 ,1 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ,1 ,2 ,2 ,3 ,4 ,4 ,5 ,6 ,7 ,8 ,9 ,11 ,12 ,13 ,15 ,16 ,18 ,20 ,21 ,23 ,25 ,27 ,29 ,31 ,33 ,36 ,38 ,40 ,42 ,45 ,47 ,50 ,52 ,55 ,58 ,60 ,63 ,66 ,69 ,72 ,75 ,78 ,80 ,83 ,87 ,90 ,93 ,96 ,99 ,102 ,105 ,108 ,111 ,115 ,118 ,121 ,124 ,127\}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a7a28803479e3ae0d8db750f12e814b1d}{binarios\+\_\+triac}} \mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{0 ,2 ,4 ,6 ,8 ,10 ,12 ,14 ,16 ,18 ,20 ,22 ,25 ,27 ,29 ,31 ,33 ,35 ,37 ,39 ,41 ,43 ,45 ,47 ,49 ,51 ,53 ,55 ,57 ,59 ,61 ,63 ,65 ,67 ,69 ,72 ,74 ,76 ,78 ,80 ,82 ,84 ,86 ,88 ,90 ,92 ,94 ,96 ,98 ,100 ,102 ,104 ,106 ,108 ,110 ,112 ,114 ,117 ,119 ,121 ,123 ,125 ,127 ,129 ,131 ,133 ,135 ,137 ,139 ,141 ,143 ,145 ,147 ,149 ,151 ,153 ,155 ,157 ,159 ,161 ,164 ,166 ,168 ,170 ,172 ,174 ,176 ,178 ,180 ,182 ,184 ,186 ,188 ,190 ,192 ,194 ,196 ,198 ,200 ,202 ,204 ,206 ,208 ,211 ,213 ,215 ,217 ,219 ,221 ,223 ,225 ,227 ,229 ,231 ,233 ,235 ,237 ,239 ,241 ,243 ,245 ,247 ,249 ,251 ,253 ,254 ,252 ,250 ,248 ,246 ,244 ,242 ,240 ,238 ,236 ,234 ,232 ,230 ,228 ,226 ,224 ,222 ,220 ,218 ,216 ,214 ,212 ,210 ,207 ,205 ,203 ,201 ,199 ,197 ,195 ,193 ,191 ,189 ,187 ,185 ,183 ,181 ,179 ,177 ,175 ,173 ,171 ,169 ,167 ,165 ,163 ,160 ,158 ,156 ,154 ,152 ,150 ,148 ,146 ,144 ,142 ,140 ,138 ,136 ,134 ,132 ,130 ,128 ,126 ,124 ,122 ,120 ,118 ,115 ,113 ,111 ,109 ,107 ,105 ,103 ,101 ,99 ,97 ,95 ,93 ,91 ,89 ,87 ,85 ,83 ,81 ,79 ,77 ,75 ,73 ,71 ,68 ,66 ,64 ,62 ,60 ,58 ,56 ,54 ,52 ,50 ,48 ,46 ,44 ,42 ,40 ,38 ,36 ,34 ,32 ,30 ,28 ,26 ,24 ,21 ,19 ,17 ,15 ,13 ,11 ,9 ,7 ,5 ,3 ,1 ,1 ,3 ,5 ,7 ,9 ,11 ,13 ,15 ,17 ,19 ,21 ,24 ,26 ,28 ,30 ,32 ,34 ,36 ,38 ,40 ,42 ,44 ,46 ,48 ,50 ,52 ,54 ,56 ,58 ,60 ,62 ,64 ,66 ,68 ,71 ,73 ,75 ,77 ,79 ,81 ,83 ,85 ,87 ,89 ,91 ,93 ,95 ,97 ,99 ,101 ,103 ,105 ,107 ,109 ,111 ,113 ,115 ,118 ,120 ,122 ,124 ,126 ,128 ,130 ,132 ,134 ,136 ,138 ,140 ,142 ,144 ,146 ,148 ,150 ,152 ,154 ,156 ,158 ,160 ,163 ,165 ,167 ,169 ,171 ,173 ,175 ,177 ,179 ,181 ,183 ,185 ,187 ,189 ,191 ,193 ,195 ,197 ,199 ,201 ,203 ,205 ,207 ,210 ,212 ,214 ,216 ,218 ,220 ,222 ,224 ,226 ,228 ,230 ,232 ,234 ,236 ,238 ,240 ,242 ,244 ,246 ,248 ,250 ,252 ,254 ,253 ,251 ,249 ,247 ,245 ,243 ,241 ,239 ,237 ,235 ,233 ,231 ,229 ,227 ,225 ,223 ,221 ,219 ,217 ,215 ,213 ,211 ,208 ,206 ,204 ,202 ,200 ,198 ,196 ,194 ,192 ,190 ,188 ,186 ,184 ,182 ,180 ,178 ,176 ,174 ,172 ,170 ,168 ,166 ,164 ,161 ,159 ,157 ,155 ,153 ,151 ,149 ,147 ,145 ,143 ,141 ,139 ,137 ,135 ,133 ,131 ,129 ,127 ,125 ,123 ,121 ,119 ,117 ,114 ,112 ,110 ,108 ,106 ,104 ,102 ,100 ,98 ,96 ,94 ,92 ,90 ,88 ,86 ,84 ,82 ,80 ,78 ,76 ,74 ,72 ,69 ,67 ,65 ,63 ,61 ,59 ,57 ,55 ,53 ,51 ,49 ,47 ,45 ,43 ,41 ,39 ,37 ,35 ,33 ,31 ,29 ,27 ,25 ,22 ,20 ,18 ,16 ,14 ,12 ,10 ,8 ,6 ,4 ,2 ,0\}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_ae99d2c0c5791184818d78ab7c34b2e12}{binarios\+\_\+sao}} \mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19 ,20 ,21 ,22 ,24 ,25 ,26 ,27 ,28 ,29 ,30 ,31 ,32 ,33 ,34 ,35 ,36 ,37 ,38 ,39 ,40 ,41 ,42 ,43 ,44 ,45 ,46 ,47 ,48 ,49 ,50 ,51 ,52 ,53 ,54 ,55 ,56 ,57 ,58 ,59 ,60 ,61 ,62 ,63 ,64 ,65 ,66 ,67 ,68 ,69 ,71 ,72 ,73 ,74 ,75 ,76 ,77 ,78 ,79 ,80 ,81 ,82 ,83 ,84 ,85 ,86 ,87 ,88 ,89 ,90 ,91 ,92 ,93 ,94 ,95 ,96 ,97 ,98 ,99 ,100 ,101 ,102 ,103 ,104 ,105 ,106 ,107 ,108 ,109 ,110 ,111 ,112 ,113 ,114 ,115 ,117 ,118 ,119 ,120 ,121 ,122 ,123 ,124 ,125 ,126 ,127 ,128 ,129 ,130 ,131 ,132 ,133 ,134 ,135 ,136 ,137 ,138 ,139 ,140 ,141 ,142 ,143 ,144 ,145 ,146 ,147 ,148 ,149 ,150 ,151 ,152 ,153 ,154 ,155 ,156 ,157 ,158 ,159 ,160 ,161 ,163 ,164 ,165 ,166 ,167 ,168 ,169 ,170 ,171 ,172 ,173 ,174 ,175 ,176 ,177 ,178 ,179 ,180 ,181 ,182 ,183 ,184 ,185 ,186 ,187 ,188 ,189 ,190 ,191 ,192 ,193 ,194 ,195 ,196 ,197 ,198 ,199 ,200 ,201 ,202 ,203 ,204 ,205 ,206 ,207 ,208 ,210 ,211 ,212 ,213 ,214 ,215 ,216 ,217 ,218 ,219 ,220 ,221 ,222 ,223 ,224 ,225 ,226 ,227 ,228 ,229 ,230 ,231 ,232 ,233 ,234 ,235 ,236 ,237 ,238 ,239 ,240 ,241 ,242 ,243 ,244 ,245 ,246 ,247 ,248 ,249 ,250 ,251 ,252 ,253 ,254 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19 ,20 ,21 ,22 ,23 ,24 ,25 ,26 ,27 ,28 ,29 ,30 ,31 ,32 ,33 ,34 ,35 ,36 ,37 ,38 ,39 ,40 ,41 ,42 ,43 ,44 ,45 ,47 ,48 ,49 ,50 ,51 ,52 ,53 ,54 ,55 ,56 ,57 ,58 ,59 ,60 ,61 ,62 ,63 ,64 ,65 ,66 ,67 ,68 ,69 ,70 ,71 ,72 ,73 ,74 ,75 ,76 ,77 ,78 ,79 ,80 ,81 ,82 ,83 ,84 ,85 ,86 ,87 ,88 ,89 ,90 ,91 ,92 ,94 ,95 ,96 ,97 ,98 ,99 ,100 ,101 ,102 ,103 ,104 ,105 ,106 ,107 ,108 ,109 ,110 ,111 ,112 ,113 ,114 ,115 ,116 ,117 ,118 ,119 ,120 ,121 ,122 ,123 ,124 ,125 ,126 ,127 ,128 ,129 ,130 ,131 ,132 ,133 ,134 ,135 ,136 ,137 ,138 ,140 ,141 ,142 ,143 ,144 ,145 ,146 ,147 ,148 ,149 ,150 ,151 ,152 ,153 ,154 ,155 ,156 ,157 ,158 ,159 ,160 ,161 ,162 ,163 ,164 ,165 ,166 ,167 ,168 ,169 ,170 ,171 ,172 ,173 ,174 ,175 ,176 ,177 ,178 ,179 ,180 ,181 ,182 ,183 ,184 ,186 ,187 ,188 ,189 ,190 ,191 ,192 ,193 ,194 ,195 ,196 ,197 ,198 ,199 ,200 ,201 ,202 ,203 ,204 ,205 ,206 ,207 ,208 ,209 ,210 ,211 ,212 ,213 ,214 ,215 ,216 ,217 ,218 ,219 ,220 ,221 ,222 ,223 ,224 ,225 ,226 ,227 ,228 ,229 ,230 ,231 ,233 ,234 ,235 ,236 ,237 ,238 ,239 ,240 ,241 ,242 ,243 ,244 ,245 ,246 ,247 ,248 ,249 ,250 ,251 ,252 ,253 ,254 ,0\}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{_senal__pwm_8c_a75f16fde5b7e023857d4a75a812a1899}{binarios\+\_\+qua}} \mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,255\}
+\item 
+const int \mbox{\hyperlink{_senal__pwm_8c_a893e819c3de1504577149eca13146298}{keypad\+\_\+rows}} \mbox{[}8\mbox{]} = \{21, 20, 19, 18,13,12,11,10\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generador Digital de Señales (GDS) en C con estrategia de polling. 
+
+En esta práctica desarrollaremos en un dispositivo Generador Digital de Señales (GDS). El dispositivo GDS genera 4 formas de onda diferentes\+: seno, triangular, diente de sierra y cuadrada. El usuario puede por medio de un pulsador seleccionar el tipo de forma de onda que genera el GDS. Así cada que se presiona el botón el sistema pasa de una forma de onda a la siguiente de forma secuencial. La amplitud, el nivel DC (offset) y la frecuencia de la señal se introduce por medio de un teclado matricial de 4x4. Para ingresar la amplitud, el usuario presionara la tecla A seguida del valor de voltaje deseado en milivoltios y la tecla D para finalizar. De forma similar para ingresar el nivel DC, el usuario presionara la tecla B seguida del valor de voltaje DC deseado en milivoltios y la tecla D para finalizar. Finalmente, para ingresar la frecuencia, es necesario presionar la tecla C seguida del valor de frecuencia en Hertz y la tecla D para finalizar. Los valores actuales de Amplitud, Nivel DC y Frecuencia junto con el tipo de forma de onda actual serán impresos cada segundo a través de la interfaz serial o USB a una herramienta tipo terminal. La Amplitud deberá poder variarse entre 100mV y 2500mV, el Nivel DC entre 50mV y 1250mV. La frecuencia debe poder variarse entre 1 Hz y 12000000 Hz. Por defecto el dispositivo GDS inicia generando una señal de tipo senoidal con una amplitud de 1000 mV, Nivel DC de 500mV y frecuencia de 10Hz. La señal generada y sus características deberán desde luego poder ser corroboradas por un instrumento de medida, multímetro u osciloscopio.
+
+\begin{DoxyAuthor}{Author}
+Dorado\+\_\+\+Mutis\+\_\+\+Hoyos 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+29/04/2024 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Unlicensed 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_senal__pwm_8c_ab378053173122b6cbad42c3efd5cc8d6}\label{_senal__pwm_8c_ab378053173122b6cbad42c3efd5cc8d6} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!INTERVAL\_US@{INTERVAL\_US}}
+\index{INTERVAL\_US@{INTERVAL\_US}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{INTERVAL\_US}{INTERVAL\_US}}
+{\footnotesize\ttfamily \#define INTERVAL\+\_\+\+US~100}
+
+\Hypertarget{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}\label{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!NUM\_puntos@{NUM\_puntos}}
+\index{NUM\_puntos@{NUM\_puntos}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{NUM\_puntos}{NUM\_puntos}}
+{\footnotesize\ttfamily \#define NUM\+\_\+puntos~500}
+
+\Hypertarget{_senal__pwm_8c_ab25756a6cc29347ae13b4fc930a2fe64}\label{_senal__pwm_8c_ab25756a6cc29347ae13b4fc930a2fe64} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!PIN\_BT\_START@{PIN\_BT\_START}}
+\index{PIN\_BT\_START@{PIN\_BT\_START}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{PIN\_BT\_START}{PIN\_BT\_START}}
+{\footnotesize\ttfamily \#define PIN\+\_\+\+BT\+\_\+\+START~0}
+
+
+
+Creación de constantes. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_senal__pwm_8c_a4e8d863b0065192039f0227be27171aa}\label{_senal__pwm_8c_a4e8d863b0065192039f0227be27171aa} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!GenSenal@{GenSenal}}
+\index{GenSenal@{GenSenal}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{GenSenal()}{GenSenal()}}
+{\footnotesize\ttfamily void Gen\+Senal (\begin{DoxyParamCaption}\item[{int}]{type\+Senal,  }\item[{int}]{frecuency,  }\item[{int}]{Amp,  }\item[{int}]{offset }\end{DoxyParamCaption})}
+
+
+
+Genera una señal de salida en los puertos GPIO. 
+
+Esta función genera una señal de salida en los puertos GPIO en función del tipo de señal, la frecuencia, la amplitud y el desplazamiento especificados.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type\+Senal} & Tipo de señal a generar (0\+: senoidal, 1\+: SAO, 2\+: triac, 3\+: quadrature). \\
+\hline
+{\em frecuency} & Frecuencia de la señal en Hz. \\
+\hline
+{\em Amp} & Amplitud de la señal. \\
+\hline
+{\em offset} & Desplazamiento de la señal. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_senal__pwm_8c_ad1ac4ad0e3a010b8021e476f750779cc}\label{_senal__pwm_8c_ad1ac4ad0e3a010b8021e476f750779cc} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!intToBinaryVector@{intToBinaryVector}}
+\index{intToBinaryVector@{intToBinaryVector}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{intToBinaryVector()}{intToBinaryVector()}}
+{\footnotesize\ttfamily void int\+To\+Binary\+Vector (\begin{DoxyParamCaption}\item[{int}]{num,  }\item[{int}]{binary\+Vector\mbox{[}8\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Convierte un número entero en un vector binario. 
+
+Esta función toma un número entero y lo convierte en un vector binario de 8 bits. Cada elemento del vector binario representa un bit del número entero.
+
+
+\begin{DoxyParams}{Parameters}
+{\em num} & El número entero que se va a convertir en binario. \\
+\hline
+{\em binary\+Vector} & El vector donde se almacenará la representación binaria del número. Se espera que tenga una longitud de al menos 8 elementos. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_senal__pwm_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{_senal__pwm_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!main@{main}}
+\index{main@{main}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Función principal del programa. 
+
+Esta función inicializa la biblioteca de entrada/salida estándar y el teclado. Luego, entra en un bucle infinito donde genera una señal, verifica si se presiona un botón, controla el antirrebote, obtiene los valores del teclado y los imprime por la terminal cada segundo.
+
+\begin{DoxyReturn}{Returns}
+0 si la ejecución del programa es exitosa. 
+\end{DoxyReturn}
+\Hypertarget{_senal__pwm_8c_aef6e16b2f39b837bedfded5062a0348b}\label{_senal__pwm_8c_aef6e16b2f39b837bedfded5062a0348b} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!timer\_callback1@{timer\_callback1}}
+\index{timer\_callback1@{timer\_callback1}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{timer\_callback1()}{timer\_callback1()}}
+{\footnotesize\ttfamily void timer\+\_\+callback1 (\begin{DoxyParamCaption}\item[{struct repeating\+\_\+timer \texorpdfstring{$\ast$}{*}}]{t }\end{DoxyParamCaption})}
+
+
+
+Callback de temporizador para timer1. 
+
+Esta función se llama cada vez que el temporizador timer1 se dispara. Incrementa el contador de ticks.
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & Puntero al temporizador que ha disparado la llamada de retorno. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_senal__pwm_8c_aaf5bfb955e0f1694e54cd03df6416e71}\label{_senal__pwm_8c_aaf5bfb955e0f1694e54cd03df6416e71} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!timer\_callback\_1@{timer\_callback\_1}}
+\index{timer\_callback\_1@{timer\_callback\_1}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{timer\_callback\_1()}{timer\_callback\_1()}}
+{\footnotesize\ttfamily void timer\+\_\+callback\+\_\+1 (\begin{DoxyParamCaption}\item[{struct repeating\+\_\+timer \texorpdfstring{$\ast$}{*}}]{t }\end{DoxyParamCaption})}
+
+
+
+Callback de temporizador para timer\+\_\+1. 
+
+Esta función se llama cada vez que el temporizador timer\+\_\+1 se dispara. Incrementa el índice de la secuencia. Reinicia el índice si llegamos al final de la secuencia.
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & Puntero al temporizador que ha disparado la llamada de retorno. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_senal__pwm_8c_a39b4fd7df9b0cd0bff7dbdc08899cc62}\label{_senal__pwm_8c_a39b4fd7df9b0cd0bff7dbdc08899cc62} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!verificarTiempoTranscurrido@{verificarTiempoTranscurrido}}
+\index{verificarTiempoTranscurrido@{verificarTiempoTranscurrido}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{verificarTiempoTranscurrido()}{verificarTiempoTranscurrido()}}
+{\footnotesize\ttfamily bool verificar\+Tiempo\+Transcurrido (\begin{DoxyParamCaption}\item[{int}]{segundos,  }\item[{bool}]{rst }\end{DoxyParamCaption})}
+
+
+
+Verifica si ha transcurrido un cierto número de segundos desde el inicio. 
+
+Esta función calcula el tiempo transcurrido desde el inicio y compara con el número de segundos especificado. Devuelve verdadero si ha transcurrido el tiempo especificado, de lo contrario, devuelve falso.
+
+
+\begin{DoxyParams}{Parameters}
+{\em segundos} & El número de segundos a verificar. \\
+\hline
+{\em rst} & Booleano que indica si se debe reiniciar el tiempo de inicio. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Verdadero si han transcurrido los segundos especificados, falso de lo contrario. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_senal__pwm_8c_a75f16fde5b7e023857d4a75a812a1899}\label{_senal__pwm_8c_a75f16fde5b7e023857d4a75a812a1899} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!binarios\_qua@{binarios\_qua}}
+\index{binarios\_qua@{binarios\_qua}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{binarios\_qua}{binarios\_qua}}
+{\footnotesize\ttfamily uint8\+\_\+t binarios\+\_\+qua\mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,255\}}
+
+\Hypertarget{_senal__pwm_8c_ae99d2c0c5791184818d78ab7c34b2e12}\label{_senal__pwm_8c_ae99d2c0c5791184818d78ab7c34b2e12} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!binarios\_sao@{binarios\_sao}}
+\index{binarios\_sao@{binarios\_sao}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{binarios\_sao}{binarios\_sao}}
+{\footnotesize\ttfamily uint8\+\_\+t binarios\+\_\+sao\mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{0 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19 ,20 ,21 ,22 ,24 ,25 ,26 ,27 ,28 ,29 ,30 ,31 ,32 ,33 ,34 ,35 ,36 ,37 ,38 ,39 ,40 ,41 ,42 ,43 ,44 ,45 ,46 ,47 ,48 ,49 ,50 ,51 ,52 ,53 ,54 ,55 ,56 ,57 ,58 ,59 ,60 ,61 ,62 ,63 ,64 ,65 ,66 ,67 ,68 ,69 ,71 ,72 ,73 ,74 ,75 ,76 ,77 ,78 ,79 ,80 ,81 ,82 ,83 ,84 ,85 ,86 ,87 ,88 ,89 ,90 ,91 ,92 ,93 ,94 ,95 ,96 ,97 ,98 ,99 ,100 ,101 ,102 ,103 ,104 ,105 ,106 ,107 ,108 ,109 ,110 ,111 ,112 ,113 ,114 ,115 ,117 ,118 ,119 ,120 ,121 ,122 ,123 ,124 ,125 ,126 ,127 ,128 ,129 ,130 ,131 ,132 ,133 ,134 ,135 ,136 ,137 ,138 ,139 ,140 ,141 ,142 ,143 ,144 ,145 ,146 ,147 ,148 ,149 ,150 ,151 ,152 ,153 ,154 ,155 ,156 ,157 ,158 ,159 ,160 ,161 ,163 ,164 ,165 ,166 ,167 ,168 ,169 ,170 ,171 ,172 ,173 ,174 ,175 ,176 ,177 ,178 ,179 ,180 ,181 ,182 ,183 ,184 ,185 ,186 ,187 ,188 ,189 ,190 ,191 ,192 ,193 ,194 ,195 ,196 ,197 ,198 ,199 ,200 ,201 ,202 ,203 ,204 ,205 ,206 ,207 ,208 ,210 ,211 ,212 ,213 ,214 ,215 ,216 ,217 ,218 ,219 ,220 ,221 ,222 ,223 ,224 ,225 ,226 ,227 ,228 ,229 ,230 ,231 ,232 ,233 ,234 ,235 ,236 ,237 ,238 ,239 ,240 ,241 ,242 ,243 ,244 ,245 ,246 ,247 ,248 ,249 ,250 ,251 ,252 ,253 ,254 ,1 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19 ,20 ,21 ,22 ,23 ,24 ,25 ,26 ,27 ,28 ,29 ,30 ,31 ,32 ,33 ,34 ,35 ,36 ,37 ,38 ,39 ,40 ,41 ,42 ,43 ,44 ,45 ,47 ,48 ,49 ,50 ,51 ,52 ,53 ,54 ,55 ,56 ,57 ,58 ,59 ,60 ,61 ,62 ,63 ,64 ,65 ,66 ,67 ,68 ,69 ,70 ,71 ,72 ,73 ,74 ,75 ,76 ,77 ,78 ,79 ,80 ,81 ,82 ,83 ,84 ,85 ,86 ,87 ,88 ,89 ,90 ,91 ,92 ,94 ,95 ,96 ,97 ,98 ,99 ,100 ,101 ,102 ,103 ,104 ,105 ,106 ,107 ,108 ,109 ,110 ,111 ,112 ,113 ,114 ,115 ,116 ,117 ,118 ,119 ,120 ,121 ,122 ,123 ,124 ,125 ,126 ,127 ,128 ,129 ,130 ,131 ,132 ,133 ,134 ,135 ,136 ,137 ,138 ,140 ,141 ,142 ,143 ,144 ,145 ,146 ,147 ,148 ,149 ,150 ,151 ,152 ,153 ,154 ,155 ,156 ,157 ,158 ,159 ,160 ,161 ,162 ,163 ,164 ,165 ,166 ,167 ,168 ,169 ,170 ,171 ,172 ,173 ,174 ,175 ,176 ,177 ,178 ,179 ,180 ,181 ,182 ,183 ,184 ,186 ,187 ,188 ,189 ,190 ,191 ,192 ,193 ,194 ,195 ,196 ,197 ,198 ,199 ,200 ,201 ,202 ,203 ,204 ,205 ,206 ,207 ,208 ,209 ,210 ,211 ,212 ,213 ,214 ,215 ,216 ,217 ,218 ,219 ,220 ,221 ,222 ,223 ,224 ,225 ,226 ,227 ,228 ,229 ,230 ,231 ,233 ,234 ,235 ,236 ,237 ,238 ,239 ,240 ,241 ,242 ,243 ,244 ,245 ,246 ,247 ,248 ,249 ,250 ,251 ,252 ,253 ,254 ,0\}}
+
+\Hypertarget{_senal__pwm_8c_a0fe2fc0ca5cac26ca90aa212cdbb3ab5}\label{_senal__pwm_8c_a0fe2fc0ca5cac26ca90aa212cdbb3ab5} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!binarios\_senoidal@{binarios\_senoidal}}
+\index{binarios\_senoidal@{binarios\_senoidal}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{binarios\_senoidal}{binarios\_senoidal}}
+{\footnotesize\ttfamily uint8\+\_\+t binarios\+\_\+senoidal\mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{128 ,131 ,134 ,137 ,140 ,144 ,147 ,150 ,153 ,156 ,159 ,162 ,165 ,168 ,172 ,175 ,177 ,180 ,183 ,186 ,189 ,192 ,195 ,197 ,200 ,203 ,205 ,208 ,210 ,213 ,215 ,217 ,219 ,222 ,224 ,226 ,228 ,230 ,232 ,234 ,235 ,237 ,239 ,240 ,242 ,243 ,244 ,246 ,247 ,248 ,249 ,250 ,251 ,251 ,252 ,253 ,253 ,254 ,254 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,254 ,254 ,254 ,253 ,253 ,252 ,251 ,250 ,250 ,249 ,248 ,246 ,245 ,244 ,243 ,241 ,240 ,238 ,237 ,235 ,233 ,231 ,229 ,227 ,225 ,223 ,221 ,219 ,217 ,214 ,212 ,210 ,207 ,205 ,202 ,199 ,197 ,194 ,191 ,188 ,185 ,183 ,180 ,177 ,174 ,171 ,168 ,165 ,162 ,158 ,155 ,152 ,149 ,146 ,143 ,140 ,136 ,133 ,130 ,127 ,123 ,120 ,117 ,114 ,111 ,108 ,104 ,101 ,98 ,95 ,92 ,89 ,86 ,83 ,80 ,77 ,74 ,71 ,68 ,65 ,62 ,60 ,57 ,54 ,52 ,49 ,47 ,44 ,42 ,39 ,37 ,35 ,33 ,31 ,29 ,27 ,25 ,23 ,21 ,19 ,18 ,16 ,15 ,13 ,12 ,10 ,9 ,8 ,7 ,6 ,5 ,4 ,3 ,3 ,2 ,2 ,1 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ,1 ,1 ,2 ,2 ,3 ,4 ,5 ,6 ,7 ,8 ,9 ,10 ,11 ,13 ,14 ,16 ,17 ,19 ,21 ,22 ,24 ,26 ,28 ,30 ,32 ,34 ,37 ,39 ,41 ,44 ,46 ,49 ,51 ,54 ,56 ,59 ,62 ,65 ,67 ,70 ,73 ,76 ,79 ,82 ,85 ,88 ,91 ,94 ,97 ,100 ,104 ,107 ,110 ,113 ,116 ,119 ,123 ,126 ,129 ,132 ,136 ,139 ,142 ,145 ,148 ,151 ,155 ,158 ,161 ,164 ,167 ,170 ,173 ,176 ,179 ,182 ,185 ,188 ,190 ,193 ,196 ,199 ,201 ,204 ,206 ,209 ,211 ,214 ,216 ,218 ,221 ,223 ,225 ,227 ,229 ,231 ,233 ,234 ,236 ,238 ,239 ,241 ,242 ,244 ,245 ,246 ,247 ,248 ,249 ,250 ,251 ,252 ,253 ,253 ,254 ,254 ,254 ,255 ,255 ,255 ,255 ,255 ,255 ,255 ,254 ,254 ,253 ,253 ,252 ,252 ,251 ,250 ,249 ,248 ,247 ,246 ,245 ,243 ,242 ,240 ,239 ,237 ,236 ,234 ,232 ,230 ,228 ,226 ,224 ,222 ,220 ,218 ,216 ,213 ,211 ,208 ,206 ,203 ,201 ,198 ,195 ,193 ,190 ,187 ,184 ,181 ,178 ,175 ,172 ,169 ,166 ,163 ,160 ,157 ,154 ,151 ,147 ,144 ,141 ,138 ,135 ,132 ,128 ,125 ,122 ,119 ,115 ,112 ,109 ,106 ,103 ,100 ,97 ,93 ,90 ,87 ,84 ,81 ,78 ,75 ,72 ,70 ,67 ,64 ,61 ,58 ,56 ,53 ,50 ,48 ,45 ,43 ,41 ,38 ,36 ,34 ,32 ,30 ,28 ,26 ,24 ,22 ,20 ,18 ,17 ,15 ,14 ,12 ,11 ,10 ,9 ,7 ,6 ,5 ,5 ,4 ,3 ,2 ,2 ,1 ,1 ,1 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,1 ,1 ,2 ,2 ,3 ,4 ,4 ,5 ,6 ,7 ,8 ,9 ,11 ,12 ,13 ,15 ,16 ,18 ,20 ,21 ,23 ,25 ,27 ,29 ,31 ,33 ,36 ,38 ,40 ,42 ,45 ,47 ,50 ,52 ,55 ,58 ,60 ,63 ,66 ,69 ,72 ,75 ,78 ,80 ,83 ,87 ,90 ,93 ,96 ,99 ,102 ,105 ,108 ,111 ,115 ,118 ,121 ,124 ,127\}}
+
+\Hypertarget{_senal__pwm_8c_a7a28803479e3ae0d8db750f12e814b1d}\label{_senal__pwm_8c_a7a28803479e3ae0d8db750f12e814b1d} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!binarios\_triac@{binarios\_triac}}
+\index{binarios\_triac@{binarios\_triac}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{binarios\_triac}{binarios\_triac}}
+{\footnotesize\ttfamily uint8\+\_\+t binarios\+\_\+triac\mbox{[}\mbox{\hyperlink{_senal__pwm_8c_a42536909eafc3158397b7a17cd62aed0}{NUM\+\_\+puntos}}\mbox{]} = \{0 ,2 ,4 ,6 ,8 ,10 ,12 ,14 ,16 ,18 ,20 ,22 ,25 ,27 ,29 ,31 ,33 ,35 ,37 ,39 ,41 ,43 ,45 ,47 ,49 ,51 ,53 ,55 ,57 ,59 ,61 ,63 ,65 ,67 ,69 ,72 ,74 ,76 ,78 ,80 ,82 ,84 ,86 ,88 ,90 ,92 ,94 ,96 ,98 ,100 ,102 ,104 ,106 ,108 ,110 ,112 ,114 ,117 ,119 ,121 ,123 ,125 ,127 ,129 ,131 ,133 ,135 ,137 ,139 ,141 ,143 ,145 ,147 ,149 ,151 ,153 ,155 ,157 ,159 ,161 ,164 ,166 ,168 ,170 ,172 ,174 ,176 ,178 ,180 ,182 ,184 ,186 ,188 ,190 ,192 ,194 ,196 ,198 ,200 ,202 ,204 ,206 ,208 ,211 ,213 ,215 ,217 ,219 ,221 ,223 ,225 ,227 ,229 ,231 ,233 ,235 ,237 ,239 ,241 ,243 ,245 ,247 ,249 ,251 ,253 ,254 ,252 ,250 ,248 ,246 ,244 ,242 ,240 ,238 ,236 ,234 ,232 ,230 ,228 ,226 ,224 ,222 ,220 ,218 ,216 ,214 ,212 ,210 ,207 ,205 ,203 ,201 ,199 ,197 ,195 ,193 ,191 ,189 ,187 ,185 ,183 ,181 ,179 ,177 ,175 ,173 ,171 ,169 ,167 ,165 ,163 ,160 ,158 ,156 ,154 ,152 ,150 ,148 ,146 ,144 ,142 ,140 ,138 ,136 ,134 ,132 ,130 ,128 ,126 ,124 ,122 ,120 ,118 ,115 ,113 ,111 ,109 ,107 ,105 ,103 ,101 ,99 ,97 ,95 ,93 ,91 ,89 ,87 ,85 ,83 ,81 ,79 ,77 ,75 ,73 ,71 ,68 ,66 ,64 ,62 ,60 ,58 ,56 ,54 ,52 ,50 ,48 ,46 ,44 ,42 ,40 ,38 ,36 ,34 ,32 ,30 ,28 ,26 ,24 ,21 ,19 ,17 ,15 ,13 ,11 ,9 ,7 ,5 ,3 ,1 ,1 ,3 ,5 ,7 ,9 ,11 ,13 ,15 ,17 ,19 ,21 ,24 ,26 ,28 ,30 ,32 ,34 ,36 ,38 ,40 ,42 ,44 ,46 ,48 ,50 ,52 ,54 ,56 ,58 ,60 ,62 ,64 ,66 ,68 ,71 ,73 ,75 ,77 ,79 ,81 ,83 ,85 ,87 ,89 ,91 ,93 ,95 ,97 ,99 ,101 ,103 ,105 ,107 ,109 ,111 ,113 ,115 ,118 ,120 ,122 ,124 ,126 ,128 ,130 ,132 ,134 ,136 ,138 ,140 ,142 ,144 ,146 ,148 ,150 ,152 ,154 ,156 ,158 ,160 ,163 ,165 ,167 ,169 ,171 ,173 ,175 ,177 ,179 ,181 ,183 ,185 ,187 ,189 ,191 ,193 ,195 ,197 ,199 ,201 ,203 ,205 ,207 ,210 ,212 ,214 ,216 ,218 ,220 ,222 ,224 ,226 ,228 ,230 ,232 ,234 ,236 ,238 ,240 ,242 ,244 ,246 ,248 ,250 ,252 ,254 ,253 ,251 ,249 ,247 ,245 ,243 ,241 ,239 ,237 ,235 ,233 ,231 ,229 ,227 ,225 ,223 ,221 ,219 ,217 ,215 ,213 ,211 ,208 ,206 ,204 ,202 ,200 ,198 ,196 ,194 ,192 ,190 ,188 ,186 ,184 ,182 ,180 ,178 ,176 ,174 ,172 ,170 ,168 ,166 ,164 ,161 ,159 ,157 ,155 ,153 ,151 ,149 ,147 ,145 ,143 ,141 ,139 ,137 ,135 ,133 ,131 ,129 ,127 ,125 ,123 ,121 ,119 ,117 ,114 ,112 ,110 ,108 ,106 ,104 ,102 ,100 ,98 ,96 ,94 ,92 ,90 ,88 ,86 ,84 ,82 ,80 ,78 ,76 ,74 ,72 ,69 ,67 ,65 ,63 ,61 ,59 ,57 ,55 ,53 ,51 ,49 ,47 ,45 ,43 ,41 ,39 ,37 ,35 ,33 ,31 ,29 ,27 ,25 ,22 ,20 ,18 ,16 ,14 ,12 ,10 ,8 ,6 ,4 ,2 ,0\}}
+
+\Hypertarget{_senal__pwm_8c_a893e819c3de1504577149eca13146298}\label{_senal__pwm_8c_a893e819c3de1504577149eca13146298} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!keypad\_rows@{keypad\_rows}}
+\index{keypad\_rows@{keypad\_rows}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{keypad\_rows}{keypad\_rows}}
+{\footnotesize\ttfamily const int keypad\+\_\+rows\mbox{[}8\mbox{]} = \{21, 20, 19, 18,13,12,11,10\}}
+
+\Hypertarget{_senal__pwm_8c_a4b83c86b8db36442952a8e16bff2d243}\label{_senal__pwm_8c_a4b83c86b8db36442952a8e16bff2d243} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!one\_second@{one\_second}}
+\index{one\_second@{one\_second}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{one\_second}{one\_second}}
+{\footnotesize\ttfamily uint8\+\_\+t one\+\_\+second = 0}
+
+\Hypertarget{_senal__pwm_8c_a139e7d05b69e732681f476c49ddd0f67}\label{_senal__pwm_8c_a139e7d05b69e732681f476c49ddd0f67} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!tiempo\_10s@{tiempo\_10s}}
+\index{tiempo\_10s@{tiempo\_10s}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{tiempo\_10s}{tiempo\_10s}}
+{\footnotesize\ttfamily uint64\+\_\+t tiempo\+\_\+10s =0}
+
+\Hypertarget{_senal__pwm_8c_a1920ed807bd888b4d599a5d5071a0251}\label{_senal__pwm_8c_a1920ed807bd888b4d599a5d5071a0251} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!tiempo\_inicio@{tiempo\_inicio}}
+\index{tiempo\_inicio@{tiempo\_inicio}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{tiempo\_inicio}{tiempo\_inicio}}
+{\footnotesize\ttfamily uint64\+\_\+t tiempo\+\_\+inicio = 0}
+
+
+
+Creación de variables. 
+
+\Hypertarget{_senal__pwm_8c_a5981e8e077fdf91398eaee2112b5a75f}\label{_senal__pwm_8c_a5981e8e077fdf91398eaee2112b5a75f} 
+\index{Senal\_pwm.c@{Senal\_pwm.c}!timer\_ticks@{timer\_ticks}}
+\index{timer\_ticks@{timer\_ticks}!Senal\_pwm.c@{Senal\_pwm.c}}
+\doxysubsubsection{\texorpdfstring{timer\_ticks}{timer\_ticks}}
+{\footnotesize\ttfamily volatile uint32\+\_\+t timer\+\_\+ticks = 0}
+

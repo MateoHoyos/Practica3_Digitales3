@@ -1,0 +1,27 @@
+var _teclado_8c =
+[
+    [ "convert_to_int", "_teclado_8c.html#ab24d942df9b995c8e1bb8f00ac923b60", null ],
+    [ "get_value", "_teclado_8c.html#a14c2a58023dcfa15245fd0a271d181df", null ],
+    [ "setup", "_teclado_8c.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
+    [ "verificarTiempoTranscurrido1", "_teclado_8c.html#ac5510e487397ed310d883354ed012452", null ],
+    [ "amplitud", "_teclado_8c.html#aaf858419ccc48c220ba315e65a1fc369", null ],
+    [ "AntR1", "_teclado_8c.html#a91a9d1eb0d653fbadb5748d1047b0d49", null ],
+    [ "contA", "_teclado_8c.html#ab2a62ae387a53ca7f7945d7db1635961", null ],
+    [ "contB", "_teclado_8c.html#ad67f20abc8e6d350d5b19bfeb9f29b35", null ],
+    [ "contC", "_teclado_8c.html#abc6e4372b57a3f27e555e35bc86caa2d", null ],
+    [ "flag_a", "_teclado_8c.html#ac71c2f37821915cf41b31a2b6dcb8238", null ],
+    [ "flag_b", "_teclado_8c.html#af235521c47f719d42bdb6c85e7bdf780", null ],
+    [ "flag_c", "_teclado_8c.html#a981fefe0d688ede14bd7cafe20a51750", null ],
+    [ "frecuencia", "_teclado_8c.html#a8da498057767737f7509126096b276bf", null ],
+    [ "keypad_columns", "_teclado_8c.html#a9ab1a024a3534a7f47b74129c78e6c53", null ],
+    [ "keypad_rows1", "_teclado_8c.html#af1d261160c06792ec339f0012c9bf14a", null ],
+    [ "matrix_keys", "_teclado_8c.html#a1c14d1c07aa21bb004e7cd5ba92928dd", null ],
+    [ "nivelDC", "_teclado_8c.html#a642b5bc5a3fc074c54d3d02a8e96f661", null ],
+    [ "rst1", "_teclado_8c.html#adc980593775a06ddf89bb06dfadece34", null ],
+    [ "tecla_antirrebote", "_teclado_8c.html#a82d83db206241e6f813c33e3f0587a15", null ],
+    [ "tecla_presionada", "_teclado_8c.html#aab3468011ae4e51e3c09945fb1dfca4d", null ],
+    [ "value", "_teclado_8c.html#ac4f474c82e82cbb89ca7c36dd52be0ed", null ],
+    [ "valueA", "_teclado_8c.html#a646552613ce4cadd9735e5c147b08754", null ],
+    [ "valueDC", "_teclado_8c.html#a2703313dd910292c1e2b4d1c113f93fd", null ],
+    [ "valueF", "_teclado_8c.html#ade67a078b30b427bd4766802e1baa77b", null ]
+];

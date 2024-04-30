@@ -1,0 +1,16 @@
+digraph "C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3_Digitales3"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_24a7c14ceaff91a07ed46cf5f821c709 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="Laboratorio", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_24a7c14ceaff91a07ed46cf5f821c709.html",tooltip=""]
+  subgraph clusterdir_1ee18a67d568aa4f9ac6e08b85b61a09 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_1ee18a67d568aa4f9ac6e08b85b61a09.html",tooltip=""]
+    dir_1ee18a67d568aa4f9ac6e08b85b61a09 [shape=plaintext, label="Practica3_Digitales3"];
+  dir_01f79640bf9c6b9a9dc1f05c4a65d822 [label="Codigos", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_01f79640bf9c6b9a9dc1f05c4a65d822.html",tooltip=""];
+  }
+  }
+}

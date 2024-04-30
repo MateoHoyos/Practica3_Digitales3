@@ -1,0 +1,289 @@
+\doxysection{C\+:/\+Users/\+Mateo/\+Desktop/\+Digitales/\+Laboratorio/\+Practica3\+\_\+\+Digitales3/\+Codigos/3\+\_\+\+C\+\_\+polling/\+Teclado.c File Reference}
+\hypertarget{_teclado_8c}{}\label{_teclado_8c}\index{C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3\_Digitales3/Codigos/3\_C\_polling/Teclado.c@{C:/Users/Mateo/Desktop/Digitales/Laboratorio/Practica3\_Digitales3/Codigos/3\_C\_polling/Teclado.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}pico/stdlib.\+h"{}}\newline
+{\ttfamily \#include "{}pico/time.\+h"{}}\newline
+{\ttfamily \#include "{}string.\+h"{}}\newline
+{\ttfamily \#include "{}hardware/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}hardware/timer.\+h"{}}\newline
+{\ttfamily \#include "{}Teclado.\+h"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_teclado_8c_ac5510e487397ed310d883354ed012452}{verificar\+Tiempo\+Transcurrido1}} (int segundos, bool rst)
+\begin{DoxyCompactList}\small\item\em Verifica si ha transcurrido un cierto número de segundos desde el inicio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_teclado_8c_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\begin{DoxyCompactList}\small\item\em Configura los puertos GPIO para el funcionamiento del teclado matricial. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_teclado_8c_ab24d942df9b995c8e1bb8f00ac923b60}{convert\+\_\+to\+\_\+int}} (char entrada\mbox{[}$\,$\mbox{]}, char inicio, char fin)
+\begin{DoxyCompactList}\small\item\em Esta función es la entrada por teclado y extrae la contraseña de que se está ingresando que se encuentra en el índice 4 al 9 de la y se almacena en la cadena de caracteres \textquotesingle{}password\textquotesingle{}. La contraseña se termina con el carácter nulo \textquotesingle{}\textbackslash{}0\textquotesingle{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_teclado_8c_a14c2a58023dcfa15245fd0a271d181df}{get\+\_\+value}} (char \texorpdfstring{$\ast$}{*}let, int \texorpdfstring{$\ast$}{*}ampl, int \texorpdfstring{$\ast$}{*}DC, int \texorpdfstring{$\ast$}{*}freq)
+\begin{DoxyCompactList}\small\item\em Obtiene el valor ingresado desde un teclado matricial. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \mbox{\hyperlink{_teclado_8c_a1c14d1c07aa21bb004e7cd5ba92928dd}{matrix\+\_\+keys}} \mbox{[}4\mbox{]}\mbox{[}4\mbox{]}
+\begin{DoxyCompactList}\small\item\em Creación del teclado matricial 4x4. \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{_teclado_8c_af1d261160c06792ec339f0012c9bf14a}{keypad\+\_\+rows1}} \mbox{[}4\mbox{]} = \{2, 3, 4, 5\}
+\begin{DoxyCompactList}\small\item\em Creación de variables Se crean variables tanto para la lectura del teclado en filas y columnas Variables para el antirrebote. \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{_teclado_8c_a9ab1a024a3534a7f47b74129c78e6c53}{keypad\+\_\+columns}} \mbox{[}4\mbox{]} = \{6, 7, 8, 9\}
+\item 
+char \mbox{\hyperlink{_teclado_8c_aaf858419ccc48c220ba315e65a1fc369}{amplitud}} \mbox{[}6\mbox{]} = "{}"{}
+\item 
+char \mbox{\hyperlink{_teclado_8c_a642b5bc5a3fc074c54d3d02a8e96f661}{nivel\+DC}} \mbox{[}6\mbox{]} = "{}"{}
+\item 
+char \mbox{\hyperlink{_teclado_8c_a8da498057767737f7509126096b276bf}{frecuencia}} \mbox{[}7\mbox{]} = "{}"{}
+\item 
+bool \mbox{\hyperlink{_teclado_8c_ac71c2f37821915cf41b31a2b6dcb8238}{flag\+\_\+a}} = false
+\item 
+bool \mbox{\hyperlink{_teclado_8c_af235521c47f719d42bdb6c85e7bdf780}{flag\+\_\+b}} = false
+\item 
+bool \mbox{\hyperlink{_teclado_8c_a981fefe0d688ede14bd7cafe20a51750}{flag\+\_\+c}} = false
+\item 
+int \mbox{\hyperlink{_teclado_8c_ab2a62ae387a53ca7f7945d7db1635961}{contA}} = 0
+\item 
+int \mbox{\hyperlink{_teclado_8c_ad67f20abc8e6d350d5b19bfeb9f29b35}{contB}} = 0
+\item 
+int \mbox{\hyperlink{_teclado_8c_abc6e4372b57a3f27e555e35bc86caa2d}{contC}} = 0
+\item 
+int \mbox{\hyperlink{_teclado_8c_a646552613ce4cadd9735e5c147b08754}{valueA}} = 0
+\item 
+int \mbox{\hyperlink{_teclado_8c_a2703313dd910292c1e2b4d1c113f93fd}{value\+DC}} = 0
+\item 
+int \mbox{\hyperlink{_teclado_8c_ade67a078b30b427bd4766802e1baa77b}{valueF}} = 0
+\item 
+int \mbox{\hyperlink{_teclado_8c_ac4f474c82e82cbb89ca7c36dd52be0ed}{value}} = 0
+\item 
+bool \mbox{\hyperlink{_teclado_8c_a91a9d1eb0d653fbadb5748d1047b0d49}{Ant\+R1}} =true
+\item 
+bool \mbox{\hyperlink{_teclado_8c_adc980593775a06ddf89bb06dfadece34}{rst1}} =false
+\item 
+bool \mbox{\hyperlink{_teclado_8c_a82d83db206241e6f813c33e3f0587a15}{tecla\+\_\+antirrebote}} \mbox{[}4\mbox{]}\mbox{[}4\mbox{]} = \{false\}
+\item 
+bool \mbox{\hyperlink{_teclado_8c_aab3468011ae4e51e3c09945fb1dfca4d}{tecla\+\_\+presionada}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_teclado_8c_ab24d942df9b995c8e1bb8f00ac923b60}\label{_teclado_8c_ab24d942df9b995c8e1bb8f00ac923b60} 
+\index{Teclado.c@{Teclado.c}!convert\_to\_int@{convert\_to\_int}}
+\index{convert\_to\_int@{convert\_to\_int}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{convert\_to\_int()}{convert\_to\_int()}}
+{\footnotesize\ttfamily int convert\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{char}]{entrada\mbox{[}$\,$\mbox{]},  }\item[{char}]{inicio,  }\item[{char}]{fin }\end{DoxyParamCaption})}
+
+
+
+Esta función es la entrada por teclado y extrae la contraseña de que se está ingresando que se encuentra en el índice 4 al 9 de la y se almacena en la cadena de caracteres \textquotesingle{}password\textquotesingle{}. La contraseña se termina con el carácter nulo \textquotesingle{}\textbackslash{}0\textquotesingle{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entrada} & arreglo de caracteres que contiene la entrada completa del usuario. \\
+\hline
+{\em password} & arreglo de caracteres donde se almacena la contraseña extraída de entrada. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_teclado_8c_a14c2a58023dcfa15245fd0a271d181df}\label{_teclado_8c_a14c2a58023dcfa15245fd0a271d181df} 
+\index{Teclado.c@{Teclado.c}!get\_value@{get\_value}}
+\index{get\_value@{get\_value}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{get\_value()}{get\_value()}}
+{\footnotesize\ttfamily void get\+\_\+value (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{let,  }\item[{int \texorpdfstring{$\ast$}{*}}]{ampl,  }\item[{int \texorpdfstring{$\ast$}{*}}]{DC,  }\item[{int \texorpdfstring{$\ast$}{*}}]{freq }\end{DoxyParamCaption})}
+
+
+
+Obtiene el valor ingresado desde un teclado matricial. 
+
+Esta función verifica las teclas presionadas en un teclado matricial y obtiene el valor correspondiente. También obtiene la amplitud, el nivel DC y la frecuencia de la señal ingresada.
+
+
+\begin{DoxyParams}{Parameters}
+{\em let} & Puntero al carácter que representa la tecla presionada. \\
+\hline
+{\em ampl} & Puntero a la variable que almacenará la amplitud de la señal. \\
+\hline
+{\em DC} & Puntero a la variable que almacenará el nivel DC de la señal. \\
+\hline
+{\em freq} & Puntero a la variable que almacenará la frecuencia de la señal. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_teclado_8c_a4fc01d736fe50cf5b977f755b675f11d}\label{_teclado_8c_a4fc01d736fe50cf5b977f755b675f11d} 
+\index{Teclado.c@{Teclado.c}!setup@{setup}}
+\index{setup@{setup}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Configura los puertos GPIO para el funcionamiento del teclado matricial. 
+
+Esta función inicializa y configura los puertos GPIO necesarios para el funcionamiento del teclado matricial. Las filas del teclado se configuran como salidas, mientras que las columnas se configuran como entradas con resistencia de pull-\/down. 
+\begin{DoxyParams}{Parameters}
+{\em keypad\+\_\+rows} & variable en la que se almacena la fila del teclado Se configura como salida, ya que como se verá dentro de la función scan\+\_\+keys() las filas siempre van en 1, debido a que se busca cuando la columna que se presiones esté en uno y así se detecte la tecla que se presiona\\
+\hline
+{\em keypad\+\_\+columns} & variable que almacena las columnas del teclado Se inicializa como salida y como pull\+\_\+down ya que cuando se presiona una tecla, esta variable se pone en uno, encontrando así la tecla presionada, es por esto que se pone\\
+\hline
+{\em gpio\+\_\+pulldown\+\_\+keypad\+\_\+columns} & para que se mantenga el estado lógico de 0 cuando no se está aplicando una señal externa al pin de la Raspberry.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{_teclado_8c_ac5510e487397ed310d883354ed012452}\label{_teclado_8c_ac5510e487397ed310d883354ed012452} 
+\index{Teclado.c@{Teclado.c}!verificarTiempoTranscurrido1@{verificarTiempoTranscurrido1}}
+\index{verificarTiempoTranscurrido1@{verificarTiempoTranscurrido1}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{verificarTiempoTranscurrido1()}{verificarTiempoTranscurrido1()}}
+{\footnotesize\ttfamily bool verificar\+Tiempo\+Transcurrido1 (\begin{DoxyParamCaption}\item[{int}]{segundos,  }\item[{bool}]{rst }\end{DoxyParamCaption})}
+
+
+
+Verifica si ha transcurrido un cierto número de segundos desde el inicio. 
+
+Esta función calcula el tiempo transcurrido desde el inicio y compara con el número de segundos especificado. Devuelve verdadero si ha transcurrido el tiempo especificado, de lo contrario, devuelve falso.
+
+
+\begin{DoxyParams}{Parameters}
+{\em segundos} & El número de segundos a verificar. \\
+\hline
+{\em rst} & Booleano que indica si se debe reiniciar el tiempo de inicio. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Verdadero si han transcurrido los segundos especificados, falso de lo contrario. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_teclado_8c_aaf858419ccc48c220ba315e65a1fc369}\label{_teclado_8c_aaf858419ccc48c220ba315e65a1fc369} 
+\index{Teclado.c@{Teclado.c}!amplitud@{amplitud}}
+\index{amplitud@{amplitud}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{amplitud}{amplitud}}
+{\footnotesize\ttfamily char amplitud\mbox{[}6\mbox{]} = "{}"{}}
+
+\Hypertarget{_teclado_8c_a91a9d1eb0d653fbadb5748d1047b0d49}\label{_teclado_8c_a91a9d1eb0d653fbadb5748d1047b0d49} 
+\index{Teclado.c@{Teclado.c}!AntR1@{AntR1}}
+\index{AntR1@{AntR1}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{AntR1}{AntR1}}
+{\footnotesize\ttfamily bool Ant\+R1 =true}
+
+\Hypertarget{_teclado_8c_ab2a62ae387a53ca7f7945d7db1635961}\label{_teclado_8c_ab2a62ae387a53ca7f7945d7db1635961} 
+\index{Teclado.c@{Teclado.c}!contA@{contA}}
+\index{contA@{contA}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{contA}{contA}}
+{\footnotesize\ttfamily int contA = 0}
+
+\Hypertarget{_teclado_8c_ad67f20abc8e6d350d5b19bfeb9f29b35}\label{_teclado_8c_ad67f20abc8e6d350d5b19bfeb9f29b35} 
+\index{Teclado.c@{Teclado.c}!contB@{contB}}
+\index{contB@{contB}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{contB}{contB}}
+{\footnotesize\ttfamily int contB = 0}
+
+\Hypertarget{_teclado_8c_abc6e4372b57a3f27e555e35bc86caa2d}\label{_teclado_8c_abc6e4372b57a3f27e555e35bc86caa2d} 
+\index{Teclado.c@{Teclado.c}!contC@{contC}}
+\index{contC@{contC}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{contC}{contC}}
+{\footnotesize\ttfamily int contC = 0}
+
+\Hypertarget{_teclado_8c_ac71c2f37821915cf41b31a2b6dcb8238}\label{_teclado_8c_ac71c2f37821915cf41b31a2b6dcb8238} 
+\index{Teclado.c@{Teclado.c}!flag\_a@{flag\_a}}
+\index{flag\_a@{flag\_a}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{flag\_a}{flag\_a}}
+{\footnotesize\ttfamily bool flag\+\_\+a = false}
+
+\Hypertarget{_teclado_8c_af235521c47f719d42bdb6c85e7bdf780}\label{_teclado_8c_af235521c47f719d42bdb6c85e7bdf780} 
+\index{Teclado.c@{Teclado.c}!flag\_b@{flag\_b}}
+\index{flag\_b@{flag\_b}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{flag\_b}{flag\_b}}
+{\footnotesize\ttfamily bool flag\+\_\+b = false}
+
+\Hypertarget{_teclado_8c_a981fefe0d688ede14bd7cafe20a51750}\label{_teclado_8c_a981fefe0d688ede14bd7cafe20a51750} 
+\index{Teclado.c@{Teclado.c}!flag\_c@{flag\_c}}
+\index{flag\_c@{flag\_c}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{flag\_c}{flag\_c}}
+{\footnotesize\ttfamily bool flag\+\_\+c = false}
+
+\Hypertarget{_teclado_8c_a8da498057767737f7509126096b276bf}\label{_teclado_8c_a8da498057767737f7509126096b276bf} 
+\index{Teclado.c@{Teclado.c}!frecuencia@{frecuencia}}
+\index{frecuencia@{frecuencia}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{frecuencia}{frecuencia}}
+{\footnotesize\ttfamily char frecuencia\mbox{[}7\mbox{]} = "{}"{}}
+
+\Hypertarget{_teclado_8c_a9ab1a024a3534a7f47b74129c78e6c53}\label{_teclado_8c_a9ab1a024a3534a7f47b74129c78e6c53} 
+\index{Teclado.c@{Teclado.c}!keypad\_columns@{keypad\_columns}}
+\index{keypad\_columns@{keypad\_columns}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{keypad\_columns}{keypad\_columns}}
+{\footnotesize\ttfamily const int keypad\+\_\+columns\mbox{[}4\mbox{]} = \{6, 7, 8, 9\}}
+
+\Hypertarget{_teclado_8c_af1d261160c06792ec339f0012c9bf14a}\label{_teclado_8c_af1d261160c06792ec339f0012c9bf14a} 
+\index{Teclado.c@{Teclado.c}!keypad\_rows1@{keypad\_rows1}}
+\index{keypad\_rows1@{keypad\_rows1}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{keypad\_rows1}{keypad\_rows1}}
+{\footnotesize\ttfamily const int keypad\+\_\+rows1\mbox{[}4\mbox{]} = \{2, 3, 4, 5\}}
+
+
+
+Creación de variables Se crean variables tanto para la lectura del teclado en filas y columnas Variables para el antirrebote. 
+
+\Hypertarget{_teclado_8c_a1c14d1c07aa21bb004e7cd5ba92928dd}\label{_teclado_8c_a1c14d1c07aa21bb004e7cd5ba92928dd} 
+\index{Teclado.c@{Teclado.c}!matrix\_keys@{matrix\_keys}}
+\index{matrix\_keys@{matrix\_keys}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{matrix\_keys}{matrix\_keys}}
+{\footnotesize\ttfamily const char matrix\+\_\+keys\mbox{[}4\mbox{]}\mbox{[}4\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{charliteral}{'1'},\ \textcolor{charliteral}{'2'},\ \textcolor{charliteral}{'3'},\ \textcolor{charliteral}{'A'}\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{charliteral}{'4'},\ \textcolor{charliteral}{'5'},\ \textcolor{charliteral}{'6'},\ \textcolor{charliteral}{'B'}\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{charliteral}{'7'},\ \textcolor{charliteral}{'8'},\ \textcolor{charliteral}{'9'},\ \textcolor{charliteral}{'C'}\},}
+\DoxyCodeLine{\ \ \ \ \{\textcolor{charliteral}{'*'},\ \textcolor{charliteral}{'0'},\ \textcolor{charliteral}{'\#'},\ \textcolor{charliteral}{'D'}\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Creación del teclado matricial 4x4. 
+
+\Hypertarget{_teclado_8c_a642b5bc5a3fc074c54d3d02a8e96f661}\label{_teclado_8c_a642b5bc5a3fc074c54d3d02a8e96f661} 
+\index{Teclado.c@{Teclado.c}!nivelDC@{nivelDC}}
+\index{nivelDC@{nivelDC}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{nivelDC}{nivelDC}}
+{\footnotesize\ttfamily char nivel\+DC\mbox{[}6\mbox{]} = "{}"{}}
+
+\Hypertarget{_teclado_8c_adc980593775a06ddf89bb06dfadece34}\label{_teclado_8c_adc980593775a06ddf89bb06dfadece34} 
+\index{Teclado.c@{Teclado.c}!rst1@{rst1}}
+\index{rst1@{rst1}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{rst1}{rst1}}
+{\footnotesize\ttfamily bool rst1 =false}
+
+\Hypertarget{_teclado_8c_a82d83db206241e6f813c33e3f0587a15}\label{_teclado_8c_a82d83db206241e6f813c33e3f0587a15} 
+\index{Teclado.c@{Teclado.c}!tecla\_antirrebote@{tecla\_antirrebote}}
+\index{tecla\_antirrebote@{tecla\_antirrebote}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{tecla\_antirrebote}{tecla\_antirrebote}}
+{\footnotesize\ttfamily bool tecla\+\_\+antirrebote\mbox{[}4\mbox{]}\mbox{[}4\mbox{]} = \{false\}}
+
+\Hypertarget{_teclado_8c_aab3468011ae4e51e3c09945fb1dfca4d}\label{_teclado_8c_aab3468011ae4e51e3c09945fb1dfca4d} 
+\index{Teclado.c@{Teclado.c}!tecla\_presionada@{tecla\_presionada}}
+\index{tecla\_presionada@{tecla\_presionada}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{tecla\_presionada}{tecla\_presionada}}
+{\footnotesize\ttfamily bool tecla\+\_\+presionada = false}
+
+\Hypertarget{_teclado_8c_ac4f474c82e82cbb89ca7c36dd52be0ed}\label{_teclado_8c_ac4f474c82e82cbb89ca7c36dd52be0ed} 
+\index{Teclado.c@{Teclado.c}!value@{value}}
+\index{value@{value}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily int value = 0}
+
+\Hypertarget{_teclado_8c_a646552613ce4cadd9735e5c147b08754}\label{_teclado_8c_a646552613ce4cadd9735e5c147b08754} 
+\index{Teclado.c@{Teclado.c}!valueA@{valueA}}
+\index{valueA@{valueA}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{valueA}{valueA}}
+{\footnotesize\ttfamily int valueA = 0}
+
+\Hypertarget{_teclado_8c_a2703313dd910292c1e2b4d1c113f93fd}\label{_teclado_8c_a2703313dd910292c1e2b4d1c113f93fd} 
+\index{Teclado.c@{Teclado.c}!valueDC@{valueDC}}
+\index{valueDC@{valueDC}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{valueDC}{valueDC}}
+{\footnotesize\ttfamily int value\+DC = 0}
+
+\Hypertarget{_teclado_8c_ade67a078b30b427bd4766802e1baa77b}\label{_teclado_8c_ade67a078b30b427bd4766802e1baa77b} 
+\index{Teclado.c@{Teclado.c}!valueF@{valueF}}
+\index{valueF@{valueF}!Teclado.c@{Teclado.c}}
+\doxysubsubsection{\texorpdfstring{valueF}{valueF}}
+{\footnotesize\ttfamily int valueF = 0}
+

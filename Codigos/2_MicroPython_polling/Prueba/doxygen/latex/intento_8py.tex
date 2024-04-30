@@ -1,0 +1,49 @@
+\doxysection{intento.\+py File Reference}
+\hypertarget{intento_8py}{}\label{intento_8py}\index{intento.py@{intento.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceintento}{intento}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceintento_a14765bd9df5bc2cb78ab605d6813b3e3}{intento.\+Mostrar\+\_\+\+Numero}} (numero, pin\+\_\+display)
+\begin{DoxyCompactList}\small\item\em Muestra en el display el valor leido Define en que momentos se deben encender o apagar los transistores par mostrar el valor digito que se debe mostrar, es decir, la función tiene 2 parametros de entrada. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceintento_abd8c7391062c57ab7cfcbbaa19b2ff80}{intento.\+interrupt\+\_\+handler}} (pin)
+\begin{DoxyCompactList}\small\item\em interrupt\+\_\+handler Define la función que se llamará cuando ocurra la interrupción \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceintento_a98c4bdf864cdf229402410031a86601d}{intento.\+transistor\+Pin1}} = 8
+\begin{DoxyCompactList}\small\item\em Define los pines de los transistores que van activar o desactivar los leds 7 segmentos. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceintento_a3f29409ddc9f2792af2f6898255c8518}{intento.\+transistor\+Pin2}} = 9
+\item 
+int \mbox{\hyperlink{namespaceintento_a0fb801c391ae9de0b4a4bd595bd157c1}{intento.\+transistor\+Pin3}} = 10
+\item 
+int \mbox{\hyperlink{namespaceintento_a2ebfd59c72dc34283000d8089a759104}{intento.\+transistor\+Pin4}} = 11
+\item 
+int \mbox{\hyperlink{namespaceintento_abf236d7914b03ee848d2fb9df40d83f1}{intento.\+transistor\+Pin5}} = 12
+\item 
+list \mbox{\hyperlink{namespaceintento_a652bdc1ec680e1428ce39efbcb3e8b02}{intento.\+Pines\+\_\+segmentos}} = \mbox{[}1, 2, 3, 4, 5, 6, 7\mbox{]}
+\begin{DoxyCompactList}\small\item\em Definir los pines de segmentos del display. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{namespaceintento_ada736ee194b596eef8b028d74c694bcd}{intento.\+digitos}}
+\begin{DoxyCompactList}\small\item\em Define los pines de 7 segmentos que debe encender para mostrar los numeros del 0 al 9. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b}{intento.\+cont}} = 0
+\item 
+int \mbox{\hyperlink{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6}{intento.\+pin\+\_\+numero}} = 17
+\item 
+\mbox{\hyperlink{namespaceintento_afe77fa6d7d77154a282788077cdb9dbc}{intento.\+pin\+\_\+gpio}} = Pin(\mbox{\hyperlink{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6}{pin\+\_\+numero}}, Pin.\+IN)
+\item 
+\mbox{\hyperlink{namespaceintento_a33521fa05cd71c6137f0cbed5c20cf0b}{intento.\+trigger}}
+\item 
+\mbox{\hyperlink{namespaceintento_a23d3b1140ac59e63d06bd0890bcdffe6}{intento.\+IRQ\+\_\+\+RISING}}
+\item 
+\mbox{\hyperlink{namespaceintento_a9817feb472b97d4b68dc8a8da3e9c06a}{intento.\+handler}}
+\item 
+int \mbox{\hyperlink{namespaceintento_a40463e8a83ed6dbb7cc9e11b8f8edb64}{intento.\+tiempo\+\_\+transcurrido}} = 1000000
+\item 
+\mbox{\hyperlink{namespaceintento_abb78b791d12125d416bddee546d8baf5}{intento.\+tiempo\+\_\+actual}} = utime.\+ticks\+\_\+us()
+\begin{DoxyCompactList}\small\item\em El while true permite que cuando se sobrepase el tiempo deseado, se actualice el valor de frecuencia y seguido de este se haga la división en unidad, decenas,centenas y se envié a la función de Mostrar\+\_\+numero para actualizar en los leds el valor leído. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceintento_af1b308f3528764e6689912749bc25aa4}{intento.\+frec}} = \mbox{\hyperlink{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b}{cont}}
+\end{DoxyCompactItemize}

@@ -1,0 +1,208 @@
+\doxysection{intento Namespace Reference}
+\hypertarget{namespaceintento}{}\label{namespaceintento}\index{intento@{intento}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceintento_a14765bd9df5bc2cb78ab605d6813b3e3}{Mostrar\+\_\+\+Numero}} (numero, pin\+\_\+display)
+\begin{DoxyCompactList}\small\item\em Muestra en el display el valor leido Define en que momentos se deben encender o apagar los transistores par mostrar el valor digito que se debe mostrar, es decir, la función tiene 2 parametros de entrada. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceintento_abd8c7391062c57ab7cfcbbaa19b2ff80}{interrupt\+\_\+handler}} (pin)
+\begin{DoxyCompactList}\small\item\em interrupt\+\_\+handler Define la función que se llamará cuando ocurra la interrupción \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{namespaceintento_a98c4bdf864cdf229402410031a86601d}{transistor\+Pin1}} = 8
+\begin{DoxyCompactList}\small\item\em Define los pines de los transistores que van activar o desactivar los leds 7 segmentos. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceintento_a3f29409ddc9f2792af2f6898255c8518}{transistor\+Pin2}} = 9
+\item 
+int \mbox{\hyperlink{namespaceintento_a0fb801c391ae9de0b4a4bd595bd157c1}{transistor\+Pin3}} = 10
+\item 
+int \mbox{\hyperlink{namespaceintento_a2ebfd59c72dc34283000d8089a759104}{transistor\+Pin4}} = 11
+\item 
+int \mbox{\hyperlink{namespaceintento_abf236d7914b03ee848d2fb9df40d83f1}{transistor\+Pin5}} = 12
+\item 
+list \mbox{\hyperlink{namespaceintento_a652bdc1ec680e1428ce39efbcb3e8b02}{Pines\+\_\+segmentos}} = \mbox{[}1, 2, 3, 4, 5, 6, 7\mbox{]}
+\begin{DoxyCompactList}\small\item\em Definir los pines de segmentos del display. \end{DoxyCompactList}\item 
+list \mbox{\hyperlink{namespaceintento_ada736ee194b596eef8b028d74c694bcd}{digitos}}
+\begin{DoxyCompactList}\small\item\em Define los pines de 7 segmentos que debe encender para mostrar los numeros del 0 al 9. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b}{cont}} = 0
+\item 
+int \mbox{\hyperlink{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6}{pin\+\_\+numero}} = 17
+\item 
+\mbox{\hyperlink{namespaceintento_afe77fa6d7d77154a282788077cdb9dbc}{pin\+\_\+gpio}} = Pin(\mbox{\hyperlink{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6}{pin\+\_\+numero}}, Pin.\+IN)
+\item 
+\mbox{\hyperlink{namespaceintento_a33521fa05cd71c6137f0cbed5c20cf0b}{trigger}}
+\item 
+\mbox{\hyperlink{namespaceintento_a23d3b1140ac59e63d06bd0890bcdffe6}{IRQ\+\_\+\+RISING}}
+\item 
+\mbox{\hyperlink{namespaceintento_a9817feb472b97d4b68dc8a8da3e9c06a}{handler}}
+\item 
+int \mbox{\hyperlink{namespaceintento_a40463e8a83ed6dbb7cc9e11b8f8edb64}{tiempo\+\_\+transcurrido}} = 1000000
+\item 
+\mbox{\hyperlink{namespaceintento_abb78b791d12125d416bddee546d8baf5}{tiempo\+\_\+actual}} = utime.\+ticks\+\_\+us()
+\begin{DoxyCompactList}\small\item\em El while true permite que cuando se sobrepase el tiempo deseado, se actualice el valor de frecuencia y seguido de este se haga la división en unidad, decenas,centenas y se envié a la función de Mostrar\+\_\+numero para actualizar en los leds el valor leído. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{namespaceintento_af1b308f3528764e6689912749bc25aa4}{frec}} = \mbox{\hyperlink{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b}{cont}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceintento_abd8c7391062c57ab7cfcbbaa19b2ff80}\label{namespaceintento_abd8c7391062c57ab7cfcbbaa19b2ff80} 
+\index{intento@{intento}!interrupt\_handler@{interrupt\_handler}}
+\index{interrupt\_handler@{interrupt\_handler}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{interrupt\_handler()}{interrupt\_handler()}}
+{\footnotesize\ttfamily intento.\+interrupt\+\_\+handler (\begin{DoxyParamCaption}\item[{}]{pin }\end{DoxyParamCaption})}
+
+
+
+interrupt\+\_\+handler Define la función que se llamará cuando ocurra la interrupción 
+
+\begin{DoxyReturn}{Returns}
+Void 
+\end{DoxyReturn}
+\Hypertarget{namespaceintento_a14765bd9df5bc2cb78ab605d6813b3e3}\label{namespaceintento_a14765bd9df5bc2cb78ab605d6813b3e3} 
+\index{intento@{intento}!Mostrar\_Numero@{Mostrar\_Numero}}
+\index{Mostrar\_Numero@{Mostrar\_Numero}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{Mostrar\_Numero()}{Mostrar\_Numero()}}
+{\footnotesize\ttfamily intento.\+Mostrar\+\_\+\+Numero (\begin{DoxyParamCaption}\item[{}]{numero,  }\item[{}]{pin\+\_\+display }\end{DoxyParamCaption})}
+
+
+
+Muestra en el display el valor leido Define en que momentos se deben encender o apagar los transistores par mostrar el valor digito que se debe mostrar, es decir, la función tiene 2 parametros de entrada. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em numero} & que contiene el valor a encender y\\
+\hline
+{\em pin\+\_\+display} & que indica en que led se debe encender el valor enviado \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b}\label{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b} 
+\index{intento@{intento}!cont@{cont}}
+\index{cont@{cont}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{cont}{cont}}
+{\footnotesize\ttfamily int intento.\+cont = 0}
+
+\Hypertarget{namespaceintento_ada736ee194b596eef8b028d74c694bcd}\label{namespaceintento_ada736ee194b596eef8b028d74c694bcd} 
+\index{intento@{intento}!digitos@{digitos}}
+\index{digitos@{digitos}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{digitos}{digitos}}
+{\footnotesize\ttfamily list intento.\+digitos}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ [}
+\DoxyCodeLine{00002\ \ \ \ \ 0b0111111,\ \textcolor{comment}{\#\ 0}}
+\DoxyCodeLine{00003\ \ \ \ \ 0b0000110,\ \textcolor{comment}{\#\ 1}}
+\DoxyCodeLine{00004\ \ \ \ \ 0b1011011,\ \textcolor{comment}{\#\ 2}}
+\DoxyCodeLine{00005\ \ \ \ \ 0b1001111,\ \textcolor{comment}{\#\ 3}}
+\DoxyCodeLine{00006\ \ \ \ \ 0b1100110,\ \textcolor{comment}{\#\ 4}}
+\DoxyCodeLine{00007\ \ \ \ \ 0b1101101,\ \textcolor{comment}{\#\ 5}}
+\DoxyCodeLine{00008\ \ \ \ \ 0b1111101,\ \textcolor{comment}{\#\ 6}}
+\DoxyCodeLine{00009\ \ \ \ \ 0b0000111,\ \textcolor{comment}{\#\ 7}}
+\DoxyCodeLine{00010\ \ \ \ \ 0b1111111,\ \textcolor{comment}{\#\ 8}}
+\DoxyCodeLine{00011\ \ \ \ \ 0b1101111\ \ \textcolor{comment}{\#\ 9}}
+\DoxyCodeLine{00012\ ]}
+
+\end{DoxyCode}
+
+
+Define los pines de 7 segmentos que debe encender para mostrar los numeros del 0 al 9. 
+
+\Hypertarget{namespaceintento_af1b308f3528764e6689912749bc25aa4}\label{namespaceintento_af1b308f3528764e6689912749bc25aa4} 
+\index{intento@{intento}!frec@{frec}}
+\index{frec@{frec}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{frec}{frec}}
+{\footnotesize\ttfamily int intento.\+frec = \mbox{\hyperlink{namespaceintento_a258d07370922f8a5bd96bbad0e3abd1b}{cont}}}
+
+\Hypertarget{namespaceintento_a9817feb472b97d4b68dc8a8da3e9c06a}\label{namespaceintento_a9817feb472b97d4b68dc8a8da3e9c06a} 
+\index{intento@{intento}!handler@{handler}}
+\index{handler@{handler}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{handler}{handler}}
+{\footnotesize\ttfamily intento.\+handler}
+
+\Hypertarget{namespaceintento_a23d3b1140ac59e63d06bd0890bcdffe6}\label{namespaceintento_a23d3b1140ac59e63d06bd0890bcdffe6} 
+\index{intento@{intento}!IRQ\_RISING@{IRQ\_RISING}}
+\index{IRQ\_RISING@{IRQ\_RISING}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{IRQ\_RISING}{IRQ\_RISING}}
+{\footnotesize\ttfamily intento.\+IRQ\+\_\+\+RISING}
+
+\Hypertarget{namespaceintento_afe77fa6d7d77154a282788077cdb9dbc}\label{namespaceintento_afe77fa6d7d77154a282788077cdb9dbc} 
+\index{intento@{intento}!pin\_gpio@{pin\_gpio}}
+\index{pin\_gpio@{pin\_gpio}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{pin\_gpio}{pin\_gpio}}
+{\footnotesize\ttfamily intento.\+pin\+\_\+gpio = Pin(\mbox{\hyperlink{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6}{pin\+\_\+numero}}, Pin.\+IN)}
+
+\Hypertarget{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6}\label{namespaceintento_a1e205fb1a8c4691c92cc08291e6c1ac6} 
+\index{intento@{intento}!pin\_numero@{pin\_numero}}
+\index{pin\_numero@{pin\_numero}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{pin\_numero}{pin\_numero}}
+{\footnotesize\ttfamily int intento.\+pin\+\_\+numero = 17}
+
+\Hypertarget{namespaceintento_a652bdc1ec680e1428ce39efbcb3e8b02}\label{namespaceintento_a652bdc1ec680e1428ce39efbcb3e8b02} 
+\index{intento@{intento}!Pines\_segmentos@{Pines\_segmentos}}
+\index{Pines\_segmentos@{Pines\_segmentos}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{Pines\_segmentos}{Pines\_segmentos}}
+{\footnotesize\ttfamily list intento.\+Pines\+\_\+segmentos = \mbox{[}1, 2, 3, 4, 5, 6, 7\mbox{]}}
+
+
+
+Definir los pines de segmentos del display. 
+
+Definir los pines de segmentos del display \Hypertarget{namespaceintento_abb78b791d12125d416bddee546d8baf5}\label{namespaceintento_abb78b791d12125d416bddee546d8baf5} 
+\index{intento@{intento}!tiempo\_actual@{tiempo\_actual}}
+\index{tiempo\_actual@{tiempo\_actual}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{tiempo\_actual}{tiempo\_actual}}
+{\footnotesize\ttfamily intento.\+tiempo\+\_\+actual = utime.\+ticks\+\_\+us()}
+
+
+
+El while true permite que cuando se sobrepase el tiempo deseado, se actualice el valor de frecuencia y seguido de este se haga la división en unidad, decenas,centenas y se envié a la función de Mostrar\+\_\+numero para actualizar en los leds el valor leído. 
+
+\Hypertarget{namespaceintento_a40463e8a83ed6dbb7cc9e11b8f8edb64}\label{namespaceintento_a40463e8a83ed6dbb7cc9e11b8f8edb64} 
+\index{intento@{intento}!tiempo\_transcurrido@{tiempo\_transcurrido}}
+\index{tiempo\_transcurrido@{tiempo\_transcurrido}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{tiempo\_transcurrido}{tiempo\_transcurrido}}
+{\footnotesize\ttfamily int intento.\+tiempo\+\_\+transcurrido = 1000000}
+
+\Hypertarget{namespaceintento_a98c4bdf864cdf229402410031a86601d}\label{namespaceintento_a98c4bdf864cdf229402410031a86601d} 
+\index{intento@{intento}!transistorPin1@{transistorPin1}}
+\index{transistorPin1@{transistorPin1}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{transistorPin1}{transistorPin1}}
+{\footnotesize\ttfamily intento.\+transistor\+Pin1 = 8}
+
+
+
+Define los pines de los transistores que van activar o desactivar los leds 7 segmentos. 
+
+Definir los pines para los transistores de control de los displays \Hypertarget{namespaceintento_a3f29409ddc9f2792af2f6898255c8518}\label{namespaceintento_a3f29409ddc9f2792af2f6898255c8518} 
+\index{intento@{intento}!transistorPin2@{transistorPin2}}
+\index{transistorPin2@{transistorPin2}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{transistorPin2}{transistorPin2}}
+{\footnotesize\ttfamily intento.\+transistor\+Pin2 = 9}
+
+\Hypertarget{namespaceintento_a0fb801c391ae9de0b4a4bd595bd157c1}\label{namespaceintento_a0fb801c391ae9de0b4a4bd595bd157c1} 
+\index{intento@{intento}!transistorPin3@{transistorPin3}}
+\index{transistorPin3@{transistorPin3}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{transistorPin3}{transistorPin3}}
+{\footnotesize\ttfamily intento.\+transistor\+Pin3 = 10}
+
+\Hypertarget{namespaceintento_a2ebfd59c72dc34283000d8089a759104}\label{namespaceintento_a2ebfd59c72dc34283000d8089a759104} 
+\index{intento@{intento}!transistorPin4@{transistorPin4}}
+\index{transistorPin4@{transistorPin4}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{transistorPin4}{transistorPin4}}
+{\footnotesize\ttfamily intento.\+transistor\+Pin4 = 11}
+
+\Hypertarget{namespaceintento_abf236d7914b03ee848d2fb9df40d83f1}\label{namespaceintento_abf236d7914b03ee848d2fb9df40d83f1} 
+\index{intento@{intento}!transistorPin5@{transistorPin5}}
+\index{transistorPin5@{transistorPin5}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{transistorPin5}{transistorPin5}}
+{\footnotesize\ttfamily intento.\+transistor\+Pin5 = 12}
+
+\Hypertarget{namespaceintento_a33521fa05cd71c6137f0cbed5c20cf0b}\label{namespaceintento_a33521fa05cd71c6137f0cbed5c20cf0b} 
+\index{intento@{intento}!trigger@{trigger}}
+\index{trigger@{trigger}!intento@{intento}}
+\doxysubsubsection{\texorpdfstring{trigger}{trigger}}
+{\footnotesize\ttfamily intento.\+trigger}
+
